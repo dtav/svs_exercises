@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="java"/>
-	<classpathentry kind="src" path="oop"/>
-	<classpathentry kind="src" path="working_with_objects"/>
-	<classpathentry kind="src" path="arrays"/>
-	<classpathentry kind="src" path="logic_and_loops"/>
-	<classpathentry kind="src" path="classes_and_methods"/>
-	<classpathentry kind="src" path="class_organization_and_access_control"/>
-	<classpathentry kind="src" path="interfaces"/>
-	<classpathentry kind="src" path="exceptions"/>
-	<classpathentry kind="src" path="data_structures"/>
-	<classpathentry kind="src" path="input_and_output"/>
-	<classpathentry kind="src" path="concurrency"/>
-	<classpathentry kind="src" path="language_elements"/>
+	<classpathentry kind="src" path="01. Java"/>
+	<classpathentry kind="src" path="02. OOP"/>
+	<classpathentry kind="src" path="04. Working with objects"/>
+	<classpathentry kind="src" path="05. Arrays"/>
+	<classpathentry kind="src" path="06. Logic and loops"/>
+	<classpathentry kind="src" path="07. Classes and methods"/>
+	<classpathentry kind="src" path="08. Class organization and access control"/>
+	<classpathentry kind="src" path="09. Interfaces"/>
+	<classpathentry kind="src" path="10. Exceptions"/>
+	<classpathentry kind="src" path="11. Data structures"/>
+	<classpathentry kind="src" path="12. Input and Output"/>
+	<classpathentry kind="src" path="13. Concurrency"/>
+	<classpathentry kind="src" path="03. Language elements"/>
+	<classpathentry kind="src" path="14 High-level concurrency"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
