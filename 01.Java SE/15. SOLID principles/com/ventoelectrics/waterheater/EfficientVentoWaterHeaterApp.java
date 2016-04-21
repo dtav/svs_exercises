@@ -1,5 +1,7 @@
 package com.ventoelectrics.waterheater;
 
+import com.acme.ventoAdapters.HeaterAdapter;
+import com.acme.ventoAdapters.ThermometerAdapter;
 import com.acme.waterheater.*;
 
 public class EfficientVentoWaterHeaterApp {
@@ -11,23 +13,21 @@ public class EfficientVentoWaterHeaterApp {
 		final VentoPowerSwitch ventoPowerSwitch = new VentoPowerSwitch();
 
 		final VentoThermoregulator ventoThermoregulator = new EfficientThermoregulator(ventoThermometer, ventoHeater);
-		
-		final EfficientThermoregulator_nonSpecific effn = new EfficientThermoregulator_nonSpecific(ventoThermometer, ventoHeater);
-		
+
+		ThermometerAdapter vento_acme_thermo_adapter = new ThermometerAdapter(ventoThermometer);
+		HeaterAdapter vento_acme_heater_adapter = new HeaterAdapter(ventoHeater);
+
+		final EfficientThermoregulator_nonSpecific effn = new EfficientThermoregulator_nonSpecific(
+				vento_acme_thermo_adapter, vento_acme_heater_adapter);
+
 		ventoPowerSwitch.controlPowerFor(ventoThermoregulator);
-		ventoPowerSwitch.controlPowerFor(effn);
+		// ventoPowerSwitch.controlPowerFor(effn);
 		ventoPowerSwitch.controlPowerFor(ventoHeater);
 		ventoPowerSwitch.controlPowerFor(ventoThermometer);
-		
+
 		Thread effnThread = new Thread((Runnable) effn);
 		effnThread.start();
-		
-		
-		Thread VthremoThread = new Thread((Runnable) ventoThermoregulator);
-		//VthremoThread.start();
-		
 
-		//VentoWaterHeaterApp.run(ventoThermoregulator, ventoPowerSwitch);
 		VentoWaterHeaterApp.run(effn, ventoPowerSwitch);
 
 	}

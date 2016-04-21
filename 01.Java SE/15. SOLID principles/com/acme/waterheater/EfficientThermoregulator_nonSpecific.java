@@ -1,12 +1,12 @@
 package com.acme.waterheater;
 
-import com.ventoelectrics.waterheater.VentoHeater;
-import com.ventoelectrics.waterheater.VentoThermometer;
+import com.acme.ventoAdapters.HeaterAdapter;
+import com.acme.ventoAdapters.ThermometerAdapter;
 
 public class EfficientThermoregulator_nonSpecific extends Thermoregulator implements Runnable, PoweredDevice{
 	
-	public EfficientThermoregulator_nonSpecific(VentoThermometer vThermo, VentoHeater vHeater) {
-		super(vThermo, vHeater);
+	public EfficientThermoregulator_nonSpecific(ThermometerAdapter ta, HeaterAdapter ha) {
+		super(ta, ha);
 		sleepTime = 1000;
 		
 	}

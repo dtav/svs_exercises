@@ -1,19 +1,28 @@
 package com.acme.waterheater;
 
-import com.ventoelectrics.waterheater.*;
+import com.acme.ventoAdapters.HeaterAdapter;
+import com.acme.ventoAdapters.ThermometerAdapter;
 
-public abstract class Thermoregulator implements VentoThermoregulator, Runnable {
-	VentoThermometer vThermo;
-	VentoHeater vHeater;
+//implemented adapters !
+
+//this can be implemented in acme as standalone also
+import com.ventoelectrics.waterheater.NoPowerException;
+
+public abstract class Thermoregulator implements Runnable, PoweredDevice {
+	ThermometerAdapter thermometer;
+	HeaterAdapter heater;
 	Integer thresholdTemp;
 	boolean powerEnabled;
 	long sleepTime;
 	
 	
+	public ThermometerAdapter getThermoAdapter(){
+		return this.thermometer;
+	}
 	
-	public Thermoregulator(VentoThermometer vThermo, VentoHeater vHeater) {
-		this.vThermo = vThermo;
-		this.vHeater = vHeater;
+	public Thermoregulator(ThermometerAdapter ta, HeaterAdapter ha) {
+		this.thermometer = ta;
+		this.heater = ha;
 		
 	}
 	
@@ -29,7 +38,6 @@ public abstract class Thermoregulator implements VentoThermoregulator, Runnable 
 		
 	}
 
-	@Override
 	public void setTemperature(Integer temperature) {
 		this.thresholdTemp = temperature;
 		
@@ -37,7 +45,7 @@ public abstract class Thermoregulator implements VentoThermoregulator, Runnable 
 
 	@Override
 	public void run() {
-		boolean vThermoEnabled = true;
+		boolean thermoEnabled = true;
 		while (true){
 			try {
 				Thread.sleep(sleepTime);
@@ -52,7 +60,7 @@ public abstract class Thermoregulator implements VentoThermoregulator, Runnable 
 
 			Integer currentTemp = null;
 			try {
-				currentTemp = vThermo.getTemperature();
+				currentTemp = thermometer.getTemperature();
 			} catch (NoPowerException npe) {
 				System.out.println("No power, exiting");
 				npe.printStackTrace();
@@ -62,19 +70,19 @@ public abstract class Thermoregulator implements VentoThermoregulator, Runnable 
 			System.out.println("\n ThermoReg info: \n current heater temp: "+ currentTemp + "\t current threshold temp " + thresholdTemp );
 			
 			if ((currentTemp <= thresholdTemp - 5)){
-				if (vThermoEnabled){
+				if (thermoEnabled){
 					System.out.println("ThermoReg info: Heater already enabled");
 					continue;
 				}
-				vHeater.enable();
-				vThermoEnabled = true;
+				heater.enable();
+				thermoEnabled = true;
 			} else if ((currentTemp >= thresholdTemp + 5)){
-				if (!vThermoEnabled){
+				if (!thermoEnabled){
 					System.out.println("ThermoReg info: Heater already disabled");
 					continue;
 				}
-				vHeater.disable();
-				vThermoEnabled = false;
+				heater.disable();
+				thermoEnabled = false;
 			}
 			
 			
