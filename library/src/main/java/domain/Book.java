@@ -3,30 +3,24 @@ package domain;
 import javax.persistence.*;
 
 @Entity
+@DiscriminatorValue("book")
 @Table(name = "book")
-public class Book {
-	
-	@Id @GeneratedValue private Long id;
-	@Column(name = "isbn") private String isbn;
-	@Column(name = "title") private String title;
+@PrimaryKeyJoinColumn(name = "id")
+public class Book extends Publication {
 	
 	public Book() {
 		// TODO Auto-generated constructor stub
 	}
 	
+	@Column(name = "isbn")
+	private String isbn;
+	
+	
 	public Book(String isbn, String title){
+		super(title);
 		this.isbn = isbn;
-		this.title = title;
 	}
 	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public String getIsbn() {
 		return isbn;
 	}
@@ -35,16 +29,6 @@ public class Book {
 		this.isbn = isbn;
 	}
 
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	
-	
 	
 	
 	

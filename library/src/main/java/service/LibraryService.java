@@ -1,31 +1,48 @@
 package service;
 
-import dataaccess.BookDao;
+import dataaccess.PublicationDao;
 import domain.Book;
+import domain.Magazine;
+import domain.Publication;
 
 public class LibraryService {
 
-	private BookDao bookDao;
+	private PublicationDao pubDao;
 
-	public LibraryService(BookDao bookDao) {
-		this.bookDao = bookDao;
+	public LibraryService(PublicationDao pubDao) {
+		this.pubDao = pubDao;
 	}
 
-
-	public void registerBook(Book b){
-		this.bookDao.registerBook(b);
+	public void registerBook(Book b) {
+		this.pubDao.registerBook(b);
 	}
 
-	public void listBooks(){
-		this.bookDao.listBooks();
+	public void registerMagazine(Magazine m) {
+		this.pubDao.registerMagazine(m);
+	}
+
+	public void listPublications() {
+		this.pubDao.listPublications();
+	}
+
+	public void updateRegistration(Book b1, Book b2){
+		this.pubDao.updateRegistration(b1, b2);
+	}
+
+	public void updateRegistration(Magazine m1, Magazine m2){
+		this.pubDao.updateRegistration(m1, m2);
+	}
+
+	public void unregisterPublication(Publication p){
+		this.pubDao.unregisterPublication(p);
+	}
+
+	public boolean validateEntry(Publication p){
+		return this.pubDao.validateEntry(p);
 	}
 	
-	public void updateRegistration(){
-		this.bookDao.updateRegistration();
-	}
-	
-	public void unregisterBook(Book b){
-		this.bookDao.unregisterBook(b);
+	public long getIdFromTitle(Publication p){
+		return this.pubDao.getIdFromTitle(p);
 	}
 
 }

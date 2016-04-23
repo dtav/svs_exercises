@@ -8,17 +8,19 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import domain.Book;
+import domain.Magazine;
+import domain.Publication;
 
-public class JDBCBookDao implements BookDao {
+public class JDBCBookDao implements PublicationDao {
 	
 	public JDBCBookDao() {
 		
 	}
 
 	private Connection connectToDB() throws SQLException {
-		String url = "jdbc:postgresql://localhost:5432/library";
+		String url = "jdbc:postgresql://localhost:5432/libraryHibernate";
 		String username = "postgres";
-		String password = "postgressvs";
+		String password = "Password1";
 		return DriverManager.getConnection(url, username, password);
 	}
 
@@ -114,6 +116,41 @@ public class JDBCBookDao implements BookDao {
 	public void updateRegistration() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public void registerMagazine(Magazine m) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void listPublications() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void unregisterPublication(Publication p) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void updateRegistration(Book b1, Book b2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void updateRegistration(Magazine m1, Magazine m2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public boolean validateEntry(Publication p) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public long getIdFromTitle(Publication p) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 	
