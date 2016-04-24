@@ -13,10 +13,8 @@ public interface PublicationDao {
 
 	public void listPublications();
 	
-	public void updateRegistration(Book b1, Book b2);
-	
-	public void updateRegistration(Magazine m1, Magazine m2);
-	
+	public void updateRegistration(Publication p1, Publication p2);
+		
 	public void unregisterPublication(Publication p);
 	
 	public boolean validateEntry(Publication p);

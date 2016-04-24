@@ -29,8 +29,4 @@ public class Book extends Publication {
 		this.isbn = isbn;
 	}
 
-	
-	
-	
-
 }

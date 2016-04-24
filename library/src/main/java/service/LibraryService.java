@@ -25,12 +25,8 @@ public class LibraryService {
 		this.pubDao.listPublications();
 	}
 
-	public void updateRegistration(Book b1, Book b2){
-		this.pubDao.updateRegistration(b1, b2);
-	}
-
-	public void updateRegistration(Magazine m1, Magazine m2){
-		this.pubDao.updateRegistration(m1, m2);
+	public void updateRegistration(Publication p1, Publication p2){
+		this.pubDao.updateRegistration(p1, p2);
 	}
 
 	public void unregisterPublication(Publication p){

@@ -152,6 +152,11 @@ public class JDBCBookDao implements PublicationDao {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	public void updateRegistration(Publication p1, Publication p2) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 
