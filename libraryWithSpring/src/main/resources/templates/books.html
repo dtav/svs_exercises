@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+	<div>
+		<h3>List of books in the database</h3>
+		<hr></hr>
+	</div>
+	<table>
+		<tr th:each="book: ${books}">
+			<td><a th:href="@{/books/{id}(id=${book.id})}">Edit</a></td>
+			<td>|</td>
+			<td th:text="${book.isbn}">ISBN</td>
+			<td>|</td>
+			<td th:text="${book.title}">Title</td>
+		</tr>
+	</table>
+	<form action="#" th:action="@{/books}" th:object="${book}"
+		method="post">
+		<input type="hidden" th:field="*{id}" />
+		<input type="text" placeholder="input ISBN" th:field="*{isbn}" />
+		<input type="text" placeholder="input Title" th:field="*{title}" /> <br />
+		<input type="submit" value="Register book" />
+	</form>
+	<a href="http://localhost:8080/magazines">See Magazines</a>
+</body>
+</html>
