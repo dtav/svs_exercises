@@ -1,0 +1,9 @@
+Tweet
+---Id -->PKey serial
+---Content
+---UserID  -->FKey User.Id
+
+User
+---Id -->PKey serial
+---Nick
+---Email
