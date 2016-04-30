@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+	<div>
+		<h3>List of Tweets in the database</h3>
+		<hr></hr>
+	</div>
+	<table>
+		<tr th:each="tweet: ${tweets}">
+			<td><a th:href="@{/tweets/{id}(id=${tweet.id})}">Edit</a></td>
+			<td>|</td>
+			<td th:text="${tweet.content}">Content</td>
+			<td>|</td>
+			<td th:text="${tweet.username}">Username</td>
+			<td>|</td>
+			<td th:text="${tweet.timestamp}">Timestamp</td>
+		</tr>
+	</table>
+	<form action="#" th:action="@{/tweets}" th:object="${tweet}"
+		method="post">
+		<input type="hidden" th:field="*{id}" />
+		<input type="text" placeholder="input Content" th:field="*{content}" />
+		<input type="text" placeholder="input Username" th:field="*{username}" /> <br />
+		<input type="submit" value="Register tweet" />
+	</form>
+	
+</body>
+</html>
