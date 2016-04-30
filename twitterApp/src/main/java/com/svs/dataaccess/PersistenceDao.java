@@ -13,6 +13,8 @@ public interface PersistenceDao {
 	List<Tweet> getTweetListByUserName(String username);
 
 	String getUsernameById(long id);
+
+	List<Tweet> getTweetListWithUsername();
 	
 	
 }

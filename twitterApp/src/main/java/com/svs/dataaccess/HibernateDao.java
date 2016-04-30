@@ -108,6 +108,33 @@ public class HibernateDao implements PersistenceDao {
 		return null;
 		
 	}
+
+	@Override
+	public List<Tweet> getTweetListWithUsername() {
+		Session s = sessionFactory.openSession();
+		Transaction tx = null;
+		try {
+			tx = s.beginTransaction();
+			List<Tweet> results;
+			Query q = s.createQuery("from Tweet");
+			results = q.list();
+			ListIterator<Tweet> iterateTweets = results.listIterator();
+			while (iterateTweets.hasNext()){
+				
+			}
+			tx.commit();
+
+		} catch (RuntimeException e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			throw e;
+		} finally {
+			s.close();
+		}
+		return null;
+		
+	}
 	
 	
 	

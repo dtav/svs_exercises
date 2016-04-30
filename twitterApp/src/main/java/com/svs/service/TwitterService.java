@@ -38,6 +38,10 @@ public class TwitterService {
 		return this.persistenceDao.getUsernameById(id);
 	}
 	
+	public List<Tweet> getTweetListWithUsername(){
+		return this.persistenceDao.getTweetListWithUsername();
+	}
+	
 
 	
 }

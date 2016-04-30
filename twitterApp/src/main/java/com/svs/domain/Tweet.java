@@ -80,12 +80,6 @@ public class Tweet {
 		return ret;
 	}
 	
-	public String getUsername(){
-		return this.getMember().getUsername();
-	}
 	
-	public void setUsername(String username){
-		this.getMember().setUsername(username);
-	}
 
 }
