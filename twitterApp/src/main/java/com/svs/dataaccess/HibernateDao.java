@@ -1,9 +1,6 @@
 package com.svs.dataaccess;
 
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
-import java.util.ListIterator;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -13,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.svs.domain.Tweet;
-import com.svs.domain.Member;
 
 @Component
 public class HibernateDao implements PersistenceDao {
@@ -24,10 +20,6 @@ public class HibernateDao implements PersistenceDao {
 		this.sessionFactory = sessionFactory;
 	}
 	
-
-
-	
-
 	public List<Tweet> getTweetList() {
 		Session s = null;
 		List<Tweet> results = null;

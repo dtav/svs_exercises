@@ -3,6 +3,7 @@ package com.svs.domain;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -20,6 +21,10 @@ public class Member {
 	
 	private Set<Tweet> tweets;
 
+	public Member() {
+		
+	}
+	
 	@Id
 	@GeneratedValue
 	public long getId() {
@@ -30,6 +35,7 @@ public class Member {
 		this.id = id;
 	}
 
+	@Column(name="username",unique=true)
 	public String getUsername() {
 		return username;
 	}
@@ -38,6 +44,7 @@ public class Member {
 		this.username = username;
 	}
 
+	@Column(name="email",unique=true)
 	public String getEmail() {
 		return email;
 	}

@@ -4,17 +4,12 @@ import java.lang.reflect.Field;
 import java.sql.Timestamp;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
-import org.springframework.format.datetime.joda.MillisecondInstantPrinter;
 
 @Entity
 public class Tweet {
@@ -26,12 +21,12 @@ public class Tweet {
 	private Member member;
 
 	private Timestamp timestamp;
-	
-	public Tweet(String content, Member member){
+
+	public Tweet(String content, Member member) {
 		this.content = content;
 		this.member = member;
 		this.timestamp = new Timestamp(System.currentTimeMillis());
-		
+
 	}
 
 	public Tweet() {
@@ -56,8 +51,8 @@ public class Tweet {
 		this.content = content;
 	}
 
-	@ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
-	@JoinColumn(name="member_id")
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "member_id")
 	public Member getMember() {
 		return member;
 	}
@@ -75,14 +70,14 @@ public class Tweet {
 	}
 
 	public static String getHeader() {
-		Field[] fields = Tweet.class.getDeclaredFields();
-		String header = "";
-		for (Field f : fields) {
-			header = header + f.getName();
-			header = header + "\t";
-		}
-		header = header + "\n";
-		return header;
+		String ret = "id \t timestamp \t\t member_id \t content \t\t \n";
+		return ret;
+	}
+
+	public String toString() {
+		String ret = " " + this.getId() + "     " + this.getTimestamp() + "     "
+				+ this.getMember().getId() + "     " + this.getContent();
+		return ret;
 	}
 
 }

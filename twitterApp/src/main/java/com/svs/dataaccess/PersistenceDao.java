@@ -1,6 +1,5 @@
 package com.svs.dataaccess;
 
-import java.util.Date;
 import java.util.List;
 
 import com.svs.domain.Tweet;

@@ -9,8 +9,8 @@ import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.svs.domain.Tweet;
 import com.svs.domain.Member;
+import com.svs.domain.Tweet;
 import com.svs.service.TwitterService;
 
 @Component
@@ -27,7 +27,7 @@ public class TwitterController {
 		String inputString;
 		Integer inputInteger;
 		boolean loggedIn = false;
-		Member member = new Member();
+		Member member = null;
 		while (true) {
 			if (!loggedIn) {
 				printMenu();
@@ -37,11 +37,13 @@ public class TwitterController {
 				case 1:
 					String userName = memberPrompt(sc);
 					loggedIn = true;
+					member = new Member();
 					member.setUsername(userName);
 					break;
 				case 2:
 					String userEmail = emailPrompt(sc);
 					loggedIn = true;
+					member = new Member();
 					member.setEmail(userEmail);
 					break;
 				case 3:
@@ -101,7 +103,7 @@ public class TwitterController {
 	public void printSubMenu(String member) {
 		StringBuilder sbSub = new StringBuilder();
 
-		sbSub.append("**** Currently logged in: " + member + "****\n");
+		sbSub.append("**** Currently logged in: " + member + " ****\n");
 		sbSub.append("1. Add new Tweet\n");
 		sbSub.append("2. List your tweets\n");
 		sbSub.append("3. Log out\n");
@@ -132,6 +134,7 @@ public class TwitterController {
 			Tweet t = twIterator.next();
 			String row = t.toString();
 			twTableString.append(row);
+			twTableString.append("\n");
 		}
 		System.out.println(twTableString.toString());
 	}
