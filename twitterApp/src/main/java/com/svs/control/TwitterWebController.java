@@ -40,19 +40,19 @@ public class TwitterWebController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public String registerTweet(@ModelAttribute("tweet") Tweet tweet) {
-		Tweet tw = new Tweet(tweet.getContent(), tweet.getUsername());
-		twitterService.saveTweet(tw.getContent(), tw.getUsername());
+		Tweet tw = new Tweet(tweet.getContent(), tweet.getMember());
+		twitterService.saveTweet(tw);
 		return "redirect:/tweets";
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public String editEntry(@PathVariable("id") Long id, Model model) {
-		Tweet tweet = twitterService.getTweetByID(id);
-		if (tweet != null) {
-			System.out.println(tweet.toString());
-		}
-		return "redirect:/books";
-
-	}
+//	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+//	public String editEntry(@PathVariable("id") Long id, Model model) {
+//		Tweet tweet = twitterService.getTweetByID(id);
+//		if (tweet != null) {
+//			System.out.println(tweet.toString());
+//		}
+//		return "redirect:/books";
+//
+//	}
 
 }

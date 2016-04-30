@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.svs.domain.Tweet;
-import com.svs.domain.User;
+import com.svs.domain.Member;
 
 @Component
 public class HibernateDao implements PersistenceDao {
@@ -26,10 +26,7 @@ public class HibernateDao implements PersistenceDao {
 	
 
 
-	public String retreiveTweet() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	public List<Tweet> getTweetList() {
 		Session s = null;
@@ -48,22 +45,9 @@ public class HibernateDao implements PersistenceDao {
 		
 	}
 
-	public List<Tweet> getTweetListDate(Date d) {
-		return null;
-		// TODO Auto-generated method stub
-		
-	}
-
+	
 	@Override
-	public List<Tweet> getTweetByUser(User u) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public void saveTweet(String content, String username) {
-		Tweet t = new Tweet(content, username);
+	public void saveTweet(Tweet t) {
 		Session s = sessionFactory.openSession();
 		Transaction tx = null;
 		try {
@@ -82,20 +66,5 @@ public class HibernateDao implements PersistenceDao {
 		
 	}
 
-
-
-	@Override
-	public Tweet getTweetByID(Long id) {
-		List<Tweet> ls = getTweetList();
-		ListIterator<Tweet> lsIterator = ls.listIterator();
-		while (lsIterator.hasNext()){
-			Tweet tw = lsIterator.next();
-			if (tw.getId() == id){
-				return tw;
-			}
-			
-		}
-		return null;
-	}
 
 }

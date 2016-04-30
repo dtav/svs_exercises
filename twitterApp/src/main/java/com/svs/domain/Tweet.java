@@ -3,70 +3,49 @@ package com.svs.domain;
 import java.lang.reflect.Field;
 import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.format.datetime.joda.MillisecondInstantPrinter;
+
 @Entity
-@Table(name = "tweet")
 public class Tweet {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "tweet_id")
-	private Long tweet_id;
+	private long id;
 
-	@Column(name = "content")
 	private String content;
 
-	// @ManyToOne(cascade=CascadeType.ALL)
-	// @JoinTable(name="User",joinColumns=@JoinColumn(name="user_id"),inverseJoinColumns=@JoinColumn(name="tweet_id"))
+	private Member member;
 
-	@Column(name = "username")
-	private String username;
-
-	@Column(name = "timestamp")
 	private Timestamp timestamp;
+	
+	public Tweet(String content, Member member){
+		this.content = content;
+		this.member = member;
+		this.timestamp = new Timestamp(System.currentTimeMillis());
+		
+	}
 
 	public Tweet() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Tweet(String content) {
-		this.setContent(content);
+	@Id
+	@GeneratedValue
+	public long getId() {
+		return id;
 	}
 
-	public Tweet(String content, String username) {
-		this.content = content;
-		this.username = username;
-		this.timestamp = new Timestamp(System.currentTimeMillis());
-	}
-
-	public Timestamp getTimestamp() {
-		return timestamp;
-	}
-
-	public void setTimestamp(Timestamp timestamp) {
-		this.timestamp = timestamp;
-	}
-
-	public Long getTweet_id() {
-		return tweet_id;
-	}
-
-	public void setTweet_id(Long tweet_id) {
-		this.tweet_id = tweet_id;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public String getContent() {
@@ -77,29 +56,33 @@ public class Tweet {
 		this.content = content;
 	}
 
-	public Long getId() {
-		return tweet_id;
+	@ManyToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	@JoinColumn(name="member_id")
+	public Member getMember() {
+		return member;
 	}
 
-	public void setId(Long tweet_id) {
-		this.tweet_id = tweet_id;
+	public void setMember(Member member) {
+		this.member = member;
 	}
-	
-	public static String getHeader(){
+
+	public Timestamp getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(Timestamp timestamp) {
+		this.timestamp = timestamp;
+	}
+
+	public static String getHeader() {
 		Field[] fields = Tweet.class.getDeclaredFields();
 		String header = "";
-		for (Field f : fields){
+		for (Field f : fields) {
 			header = header + f.getName();
 			header = header + "\t";
 		}
 		header = header + "\n";
 		return header;
-	}
-	
-	public String toString(){
-		String ret = this.getId() + "\t" + this.getContent() + "\t" + this.getUsername() + "\t" + this.getTimestamp() + "\n";
-		return ret;
-		
 	}
 
 }

@@ -6,6 +6,7 @@ import org.hibernate.service.ServiceRegistry;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.svs.domain.Member;
 import com.svs.domain.Tweet;
 
 
@@ -17,7 +18,7 @@ public class HibernateConfiguration {
 		org.hibernate.cfg.Configuration conf = new org.hibernate.cfg.Configuration();
 		ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(conf.getProperties())
 				.build();
-		SessionFactory sf = conf.addAnnotatedClass(Tweet.class).buildSessionFactory(serviceRegistry);
+		SessionFactory sf = conf.addAnnotatedClass(Tweet.class).addAnnotatedClass(Member.class).buildSessionFactory(serviceRegistry);
 
 		
 		

@@ -27,12 +27,12 @@ public class TwitterRestController {
 		return listOfTweets;
 
 	}
-
-	@RequestMapping(method = RequestMethod.POST)
-	public Tweet registerTweet(@RequestBody Tweet tweet) {
-		twitterService.saveTweet(tweet.getContent(), tweet.getUsername());
-		return tweet;
-	}
+//
+//	@RequestMapping(method = RequestMethod.POST)
+//	public Tweet registerTweet(@RequestBody Tweet tweet) {
+//		twitterService.saveTweet(tweet.getContent(), tweet.getUsername());
+//		return tweet;
+//	}
 
 	
 

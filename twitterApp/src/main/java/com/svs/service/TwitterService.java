@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.svs.dataaccess.PersistenceDao;
 import com.svs.domain.Tweet;
-import com.svs.domain.User;
+import com.svs.domain.Member;
 
 @Component
 public class TwitterService {
@@ -24,22 +24,8 @@ public class TwitterService {
 		return this.persistenceDao.getTweetList();
 	}
 	
-	public void saveTweet(String content, String username){
-		this.persistenceDao.saveTweet(content, username);
-	}
-	
-	public List<Tweet> getTweetListDate(Date d){
-		
-		return this.persistenceDao.getTweetListDate(d);
-	}
-	
-	public List<Tweet> getTweetByUser(User u){
-		return this.persistenceDao.getTweetByUser(u);
-	}
-
-	public Tweet getTweetByID(Long id) {
-		return this.persistenceDao.getTweetByID(id);
-		
+	public void saveTweet(Tweet t){
+		this.persistenceDao.saveTweet(t);
 	}
 	
 }

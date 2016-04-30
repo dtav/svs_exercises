@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.svs.domain.Tweet;
-import com.svs.domain.User;
+import com.svs.domain.Member;
 import com.svs.service.TwitterService;
 
 @Component
@@ -27,7 +27,7 @@ public class TwitterController {
 		String inputString;
 		Integer inputInteger;
 		boolean loggedIn = false;
-		User user = new User();
+		Member member = new Member();
 		while (true) {
 			if (!loggedIn) {
 				printMenu();
@@ -35,14 +35,14 @@ public class TwitterController {
 				inputInteger = NumberUtils.toInt(inputString, 5);
 				switch (inputInteger) {
 				case 1:
-					String userName = userPrompt(sc);
+					String userName = memberPrompt(sc);
 					loggedIn = true;
-					user.setNick(userName);
+					member.setUsername(userName);
 					break;
 				case 2:
 					String userEmail = emailPrompt(sc);
 					loggedIn = true;
-					user.setNick(userEmail);
+					member.setEmail(userEmail);
 					break;
 				case 3:
 					List<Tweet> receivedTweetList = twService.getTweetList();
@@ -59,15 +59,15 @@ public class TwitterController {
 
 			} else {
 				System.out.println("logged in out of loop");
-				printSubMenu(user.getNick());
+				printSubMenu(member.getUsername());
 				inputString = sc.nextLine();
 				inputInteger = NumberUtils.toInt(inputString, 5);
 				switch (inputInteger) {
 				case 1:
 					System.out.println("Input tweet content:");
 					String tweetContent = sc.nextLine();
-					String tweetUser = user.getNick();
-					twService.saveTweet(tweetContent, tweetUser);
+					Tweet tweet = new Tweet(tweetContent, member);
+					twService.saveTweet(tweet);					
 					break;
 				case 2:
 					break;
@@ -98,10 +98,10 @@ public class TwitterController {
 		System.out.println(sbMenu.toString());
 	}
 
-	public void printSubMenu(String user) {
+	public void printSubMenu(String member) {
 		StringBuilder sbSub = new StringBuilder();
 
-		sbSub.append("**** Currently logged in: " + user + "****\n");
+		sbSub.append("**** Currently logged in: " + member + "****\n");
 		sbSub.append("1. Add new Tweet\n");
 		sbSub.append("2. List your tweets\n");
 		sbSub.append("3. Log out\n");
@@ -111,7 +111,7 @@ public class TwitterController {
 		System.out.println(sbSub.toString());
 	}
 
-	public String userPrompt(Scanner s) {
+	public String memberPrompt(Scanner s) {
 		System.out.println("Please enter your username: ");
 		String username = s.nextLine();
 		return username;
