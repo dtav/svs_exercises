@@ -79,5 +79,13 @@ public class Tweet {
 				+ this.getMember().getId() + "     " + this.getContent();
 		return ret;
 	}
+	
+	public String getUsername(){
+		return this.getMember().getUsername();
+	}
+	
+	public void setUsername(String username){
+		this.getMember().setUsername(username);
+	}
 
 }

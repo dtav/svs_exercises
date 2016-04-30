@@ -10,6 +10,9 @@ public interface PersistenceDao {
 
 	void saveTweet(Tweet t);
 
+	List<Tweet> getTweetListByUserName(String username);
+
+	String getUsernameById(long id);
 	
 	
 }

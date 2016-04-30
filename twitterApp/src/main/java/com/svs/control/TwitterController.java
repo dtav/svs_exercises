@@ -72,6 +72,7 @@ public class TwitterController {
 					twService.saveTweet(tweet);					
 					break;
 				case 2:
+					printListOfTweets(twService.getTweetListByUserName(member.getUsername()));
 					break;
 				case 3:
 					loggedIn = false;

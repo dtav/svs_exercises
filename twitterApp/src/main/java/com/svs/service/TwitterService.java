@@ -26,4 +26,18 @@ public class TwitterService {
 		this.persistenceDao.saveTweet(t);
 	}
 	
+	public List<Tweet> getTweetListByUserName(String username){
+		return this.persistenceDao.getTweetListByUserName(username);
+	}
+	
+	public String getTweetUsername(){
+		return null;
+	}
+	
+	public String getUsernameById(long id){
+		return this.persistenceDao.getUsernameById(id);
+	}
+	
+
+	
 }
