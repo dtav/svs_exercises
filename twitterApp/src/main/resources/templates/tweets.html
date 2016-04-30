@@ -2,14 +2,22 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 <head>
-<link rel="stylesheet" th:href="basic.css" media="Screen" type="text/css" />
+<link rel="stylesheet" th:href="@{/assets/css/basic.css}" type="text/css" />
 </head>
 <body>
-	<div>
-		<h3>List of Tweets in the database</h3>
+	<div id="headerDiv">
+		<h3>Twitter seavus app</h3>
 		<hr></hr>
 	</div>
-	<table>
+	<table id="tweetsTable">
+		<tr>
+		<th>Tweet</th>
+		<td>|</td>
+		<th>User</th>
+		<td>|</td>
+		<th>Time</th>
+		</tr>
+		
 		<tr th:each="tweet: ${tweets}">
 			<td th:text="${tweet.content}">Content</td>
 			<td>|</td>
