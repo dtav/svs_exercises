@@ -1,9 +1,18 @@
+now:
 Tweet
 ---Id -->PKey serial
 ---Content
+---UserName
+---Timestamp
+
+planned:
+---Id -->PKey serial
+---Content
 ---UserID  -->FKey User.Id
+---Timestamp
 
 User
 ---Id -->PKey serial
----Nick
+---Nick (unique)
 ---Email
+------UserType hibernate impl
