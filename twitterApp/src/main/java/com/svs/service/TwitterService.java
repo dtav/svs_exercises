@@ -1,5 +1,6 @@
 package com.svs.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,10 +39,11 @@ public class TwitterService {
 		return this.persistenceDao.getUsernameById(id);
 	}
 	
-	public List<Tweet> getTweetListWithUsername(){
-		return this.persistenceDao.getTweetListWithUsername();
-	}
+
 	
+	public List<Tweet> getTweetListLaterThan(Date d){
+		return this.persistenceDao.getTweetListLaterThan(d);
+	}
 
 	
 }

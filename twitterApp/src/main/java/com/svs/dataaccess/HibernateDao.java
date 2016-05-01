@@ -1,5 +1,7 @@
 package com.svs.dataaccess;
 
+import java.util.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
@@ -17,12 +19,12 @@ import com.svs.domain.Tweet;
 @Component
 public class HibernateDao implements PersistenceDao {
 	SessionFactory sessionFactory;
-	
+
 	@Autowired
 	public HibernateDao(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-	
+
 	public List<Tweet> getTweetList() {
 		Session s = null;
 		List<Tweet> results = null;
@@ -37,10 +39,9 @@ public class HibernateDao implements PersistenceDao {
 			s.close();
 		}
 		return results;
-		
+
 	}
 
-	
 	@Override
 	public void saveTweet(Tweet t) {
 		Session s = sessionFactory.openSession();
@@ -58,7 +59,7 @@ public class HibernateDao implements PersistenceDao {
 		} finally {
 			s.close();
 		}
-		
+
 	}
 
 	@Override
@@ -66,13 +67,13 @@ public class HibernateDao implements PersistenceDao {
 		List<Tweet> allTweets = getTweetList();
 		List<Tweet> filteredTweets = new ArrayList<Tweet>();
 		ListIterator<Tweet> iterateAll = allTweets.listIterator();
-		while (iterateAll.hasNext()){
+		while (iterateAll.hasNext()) {
 			Tweet current = iterateAll.next();
 			long CurrId = current.getMember().getId();
 			String CurrUsername = getUsernameById(CurrId);
-//			System.out.println(current.toString());
-//			System.out.println(CurrUsername);
-			if (CurrUsername.equals(username)){
+			// System.out.println(current.toString());
+			// System.out.println(CurrUsername);
+			if (CurrUsername.equals(username)) {
 				filteredTweets.add(current);
 			}
 		}
@@ -89,9 +90,9 @@ public class HibernateDao implements PersistenceDao {
 			Query q = s.createQuery("from Member");
 			results = q.list();
 			ListIterator<Member> iterateMembers = results.listIterator();
-			while(iterateMembers.hasNext()){
+			while (iterateMembers.hasNext()) {
 				Member m = iterateMembers.next();
-				if (m.getId() == id){
+				if (m.getId() == id) {
 					return m.getUsername();
 				}
 			}
@@ -106,23 +107,28 @@ public class HibernateDao implements PersistenceDao {
 			s.close();
 		}
 		return null;
-		
+
 	}
 
 	@Override
-	public List<Tweet> getTweetListWithUsername() {
+	public List<Tweet> getTweetListLaterThan(Date d) {
 		Session s = sessionFactory.openSession();
 		Transaction tx = null;
+		List<Tweet> filteredResults = new ArrayList<Tweet>();
 		try {
 			tx = s.beginTransaction();
 			List<Tweet> results;
 			Query q = s.createQuery("from Tweet");
 			results = q.list();
 			ListIterator<Tweet> iterateTweets = results.listIterator();
-			while (iterateTweets.hasNext()){
-				
+			while (iterateTweets.hasNext()) {
+				Tweet currTweet = iterateTweets.next();
+				Timestamp currTimestamp = currTweet.getTimestamp();
+				if (currTimestamp.getTime() >= d.getTime()) {
+					filteredResults.add(currTweet);
+				}
+
 			}
-			tx.commit();
 
 		} catch (RuntimeException e) {
 			if (tx != null) {
@@ -132,12 +138,8 @@ public class HibernateDao implements PersistenceDao {
 		} finally {
 			s.close();
 		}
-		return null;
-		
-	}
-	
-	
-	
+		return filteredResults;
 
+	}
 
 }

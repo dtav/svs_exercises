@@ -1,5 +1,6 @@
 package com.svs.dataaccess;
 
+import java.util.Date;
 import java.util.List;
 
 import com.svs.domain.Tweet;
@@ -14,7 +15,7 @@ public interface PersistenceDao {
 
 	String getUsernameById(long id);
 
-	List<Tweet> getTweetListWithUsername();
+	List<Tweet> getTweetListLaterThan(Date d);
 	
 	
 }
