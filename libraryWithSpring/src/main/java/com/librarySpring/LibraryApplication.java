@@ -12,7 +12,6 @@ import com.librarySpring.control.LibraryController;
 
 @SpringBootApplication
 @ComponentScan
-
 public class LibraryApplication implements CommandLineRunner, ApplicationContextAware {
 
 	private ApplicationContext applicationContext;
