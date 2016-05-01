@@ -2,6 +2,7 @@ package com.svs.service;
 
 import java.util.Date;
 import java.util.List;
+import com.svs.domain.TweetSimple;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -44,6 +45,13 @@ public class TwitterService {
 	public List<Tweet> getTweetListLaterThan(Date d){
 		return this.persistenceDao.getTweetListLaterThan(d);
 	}
+	
+
+	public List<TweetSimple> listSimpleTweets(List<Tweet> normalTweets){
+		return this.persistenceDao.listSimpleTweets(normalTweets);
+	}
+
+	
 
 	
 }

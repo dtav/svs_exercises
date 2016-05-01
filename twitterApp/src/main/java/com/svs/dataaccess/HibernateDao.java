@@ -13,8 +13,10 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+
 import com.svs.domain.Member;
 import com.svs.domain.Tweet;
+import com.svs.domain.TweetSimple;
 
 @Component
 public class HibernateDao implements PersistenceDao {
@@ -26,10 +28,11 @@ public class HibernateDao implements PersistenceDao {
 	}
 
 	public List<Tweet> getTweetList() {
+		
 		Session s = null;
-		List<Tweet> results = null;
+		List<Tweet> results = new ArrayList<Tweet>();
 		try {
-			s = sessionFactory.openSession();
+			s = this.sessionFactory.openSession();
 			Query q = s.createQuery("from Tweet");
 			results = q.list();
 			return results;
@@ -140,6 +143,22 @@ public class HibernateDao implements PersistenceDao {
 		}
 		return filteredResults;
 
+	}
+
+	@Override
+	public List<TweetSimple> listSimpleTweets(List<Tweet> normalTweets) {
+		List<TweetSimple> twSimple = new ArrayList<TweetSimple>();
+		ListIterator<Tweet> liNormal = normalTweets.listIterator();
+		while (liNormal.hasNext()){
+			Tweet tn = liNormal.next();
+			TweetSimple ts = new TweetSimple();
+			ts.setContent(tn.getContent());
+			ts.setId(tn.getId());
+			ts.setMember_id(tn.getMember().getId());
+			ts.setTimestamp(tn.getTimestamp());
+			twSimple.add(ts);			
+		}
+		return twSimple;
 	}
 
 }

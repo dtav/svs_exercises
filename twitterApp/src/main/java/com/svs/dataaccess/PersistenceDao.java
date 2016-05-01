@@ -4,18 +4,21 @@ import java.util.Date;
 import java.util.List;
 
 import com.svs.domain.Tweet;
+import com.svs.domain.TweetSimple;
 
 public interface PersistenceDao {
 
-	List<Tweet> getTweetList();
+	public List<Tweet> getTweetList();
 
-	void saveTweet(Tweet t);
+	public void saveTweet(Tweet t);
 
-	List<Tweet> getTweetListByUserName(String username);
+	public List<Tweet> getTweetListByUserName(String username);
 
-	String getUsernameById(long id);
+	public String getUsernameById(long id);
 
-	List<Tweet> getTweetListLaterThan(Date d);
+	public List<Tweet> getTweetListLaterThan(Date d);
+
+	public List<TweetSimple> listSimpleTweets(List<Tweet> normalTweets);
 	
 	
 }
