@@ -32,6 +32,7 @@ public class TwitterWebController {
 	@ModelAttribute("tweets")
 	public List<Tweet> tweets() {
 		List<Tweet> listOfTweets = twitterService.getTweetList();
+		Collections.sort(listOfTweets, (o1, o2) -> o1.getTimestamp().compareTo(o2.getTimestamp()));
 		Collections.reverse(listOfTweets);
 		return listOfTweets;
 	}

@@ -2,38 +2,53 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 <head>
-<link rel="stylesheet" th:href="@{/assets/css/basic.css}" type="text/css" />
+<link rel="stylesheet" th:href="@{/assets/css/basic.css}"
+	type="text/css" />
 </head>
 <body>
 	<div id="headerDiv">
 		<h3>Twitter seavus app</h3>
+		<img alt="err" src="images/spring.png"
+			style="width: 64px; height: 64px;"></img> <img alt="err"
+			src="images/twitter-128.png" style="width: 64px; height: 64px;"></img>
 		<hr></hr>
 	</div>
-	<table id="tweetsTable">
-		<tr>
-		<th>Tweet</th>
-		<td>|</td>
-		<th>User</th>
-		<td>|</td>
-		<th>Time</th>
-		</tr>
-		
-		<tr th:each="tweet: ${tweets}">
-			<td th:text="${tweet.content}">Content</td>
-			<td>|</td>
-			<td th:text="${tweet.member.username}">Username</td>
-			<td>|</td>
-			<td th:text="${tweet.timestamp}">Timestamp</td>
-		</tr>
-	</table>
-	<hr></hr>
-	<form action="#" th:action="@{/tweets}" th:object="${tweet}"
-		method="post">
-		<input type="hidden" th:field="*{id}" />
-		<input type="text" placeholder="input Content" th:field="*{content}" />
-		<input type="text" placeholder="input Username" th:field="*{member.username}" />
-				<input type="submit" value="Register tweet" />
-	</form>
-	
+	<section>
+		<div id="left">
+			<form action="#" th:action="@{/tweets}" th:object="${tweet}"
+				method="post">
+				<input type="hidden" th:field="*{id}" /> <input type="text"
+					placeholder="input Content" th:field="*{content}" /> <input
+					type="text" placeholder="input Username"
+					th:field="*{member.username}" /> <input type="submit"
+					value="Register tweet" />
+			</form>
+		</div>
+		<div class="scrollingtable">
+			<div id="table-wrapper">
+				<div id="table-scroll">
+					<table>
+						<thead>
+							<tr>
+								<th><div label="Tweet"></div></th>
+								<th><div label="User"></div></th>
+								<th><div label="Time"></div></th>
+								<th class="scrollbarhead"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="tweet: ${tweets}">
+								<td th:text="${tweet.content}">Content</td>
+								<td th:text="${tweet.member.username}">Username</td>
+								<td th:text="${tweet.timestamp}">Timestamp</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
 </body>
 </html>

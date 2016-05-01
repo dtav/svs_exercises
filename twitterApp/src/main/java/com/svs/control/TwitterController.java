@@ -74,7 +74,6 @@ public class TwitterController {
 						Tweet tweet = iterateAutoGen.next();
 						twService.saveTweet(tweet);
 					}
-					System.out.println("WOW, done!");
 					break;
 				case 6:
 					System.exit(0);
