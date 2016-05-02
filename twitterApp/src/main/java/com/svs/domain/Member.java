@@ -10,8 +10,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
-public class Member {
+public class Member implements java.io.Serializable {
 
 	private long id;
 	
@@ -53,7 +55,9 @@ public class Member {
 		this.email = email;
 	}
 
+	
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="member",cascade=CascadeType.ALL)
+	 @JsonBackReference //solved json recursive loop problem
 	public Set<Tweet> getTweets() {
 		return tweets;
 	}

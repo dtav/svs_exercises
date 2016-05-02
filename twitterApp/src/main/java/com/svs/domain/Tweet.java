@@ -1,6 +1,5 @@
 package com.svs.domain;
 
-import java.lang.reflect.Field;
 import java.sql.Timestamp;
 
 import javax.persistence.CascadeType;
@@ -11,8 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
-public class Tweet {
+public class Tweet  implements java.io.Serializable{
 
 	private long id;
 
@@ -51,8 +52,9 @@ public class Tweet {
 		this.content = content;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL) //resource hog if database is big
 	@JoinColumn(name = "member_id")
+	 @JsonManagedReference
 	public Member getMember() {
 		return member;
 	}

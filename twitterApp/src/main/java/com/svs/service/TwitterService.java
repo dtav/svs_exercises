@@ -2,13 +2,13 @@ package com.svs.service;
 
 import java.util.Date;
 import java.util.List;
-import com.svs.domain.TweetSimple;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.svs.dataaccess.PersistenceDao;
 import com.svs.domain.Tweet;
+import com.svs.domain.TweetSimple;
 
 @Component
 public class TwitterService {
