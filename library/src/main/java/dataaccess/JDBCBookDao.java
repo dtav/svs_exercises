@@ -20,7 +20,7 @@ public class JDBCBookDao implements PublicationDao {
 	private Connection connectToDB() throws SQLException {
 		String url = "jdbc:postgresql://localhost:5432/libraryHibernate";
 		String username = "postgres";
-		String password = "Password1";
+		String password = "postgressvs";
 		return DriverManager.getConnection(url, username, password);
 	}
 
