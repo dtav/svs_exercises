@@ -94,20 +94,54 @@ public class HibernateBookDao implements PublicationDao {
 		}
 	}
 
-	// has to validate that object has id.
-	public void unregisterPublication(Publication p) {
+	public void listBooks() {
+		Logger.log("Listing publications in HibernateBookDao:listPublications");
+		Session s = null;
+		try {
+			s = this.sf.openSession();
+			Query q = s.createQuery("from Book");
+			List<Book> results = q.list();
+
+			for (Book b : results) {
+				System.out.println(b.toString());
+			}
+		} catch (RuntimeException re) {
+			re.printStackTrace();
+		} finally {
+			s.close();
+		}
+	}
+
+	public void listMagazines() {
+		Logger.log("Listing publications in HibernateBookDao:listPublications");
+		Session s = null;
+		try {
+			s = this.sf.openSession();
+			Query q = s.createQuery("from Magazine");
+			List<Magazine> results = q.list();
+
+			for (Magazine m : results) {
+				System.out.println(m.toString());
+			}
+		} catch (RuntimeException re) {
+			re.printStackTrace();
+		} finally {
+			s.close();
+		}
+	}
+
+	// unregisters publication by id
+	public void unregisterPublication(long id) {
 		Logger.log("Unregistering publication in HibernateBookDao:unregisterPublication");
 		Session s = sf.openSession();
 		Transaction tx = null;
 		try {
 			tx = s.beginTransaction();
-			long id = getIdFromTitle(p);
+			Publication p = new Publication();
 			p.setId(id);
-			if (validateEntry(p)) {
-				s.delete(p);
-				Logger.log("Successfull unregistering of publication: " + p.getTitle());
-				tx.commit();
-			}
+			s.delete(p);
+			Logger.log("Successfull unregistering of publication: " + p.getTitle());
+			tx.commit();
 
 		} catch (RuntimeException e) {
 			if (tx != null) {
@@ -120,6 +154,7 @@ public class HibernateBookDao implements PublicationDao {
 
 	}
 
+	// defunct
 	public void updateRegistration(Publication p1, Publication p2) {
 		Logger.log(
 				"Updating publication registration in HibernateBookDao:updateRegistration(Publication p1, Publication p2)");
@@ -129,7 +164,7 @@ public class HibernateBookDao implements PublicationDao {
 			tx = s.beginTransaction();
 			long id = getIdFromTitle(p1);
 			p1.setId(id);
-			unregisterPublication(p1);
+			// unregisterPublication(p1);
 			if (p2 instanceof Book) {
 				registerBook((Book) p2);
 			} else if (p2 instanceof Magazine) {
@@ -262,7 +297,7 @@ public class HibernateBookDao implements PublicationDao {
 		return results;
 
 	}
-	
+
 	public List<Book> getListOfBooks() {
 		Logger.log("Returning List<Book> in HibernateBookDao:getListOfBooks()");
 		Session s = null;
@@ -280,7 +315,7 @@ public class HibernateBookDao implements PublicationDao {
 		return results;
 
 	}
-	
+
 	@Override
 	public List<Magazine> getListOfMagazines() {
 		Logger.log("Returning List<Magazine> in HibernateBookDao:getListOfMagazines()");
@@ -298,7 +333,6 @@ public class HibernateBookDao implements PublicationDao {
 		}
 		return results;
 	}
-	
 
 	// Book gets its title updated only
 	// isbn is a unique field and should be implemented as such, soon :)
@@ -325,7 +359,7 @@ public class HibernateBookDao implements PublicationDao {
 		}
 
 	}
-	
+
 	@Override
 	public void updateMagazine(Magazine mag) {
 		Logger.log("updating Magazine in HibernateBookDao:updateMagazine(Magazine mag)");
@@ -347,7 +381,7 @@ public class HibernateBookDao implements PublicationDao {
 		} finally {
 			s.close();
 		}
-		
+
 	}
 
 	@Override
@@ -406,9 +440,9 @@ public class HibernateBookDao implements PublicationDao {
 		Logger.log("returning Book from ID in HibernateBookDao:getBookByID(long id)");
 		List<Book> retreivedBooks = getListOfBooks();
 		ListIterator<Book> lib = retreivedBooks.listIterator();
-		while (lib.hasNext()){
+		while (lib.hasNext()) {
 			Book currentBook = lib.next();
-			if (currentBook.getId() == id){
+			if (currentBook.getId() == id) {
 				Logger.log("Found a match");
 				return currentBook;
 			}
@@ -417,16 +451,14 @@ public class HibernateBookDao implements PublicationDao {
 		return null;
 	}
 
-	
-
 	@Override
 	public Magazine getMagazineByID(long id) {
 		Logger.log("returning Magazine from ID in HibernateBookDao:getMagazineByID(long id)");
 		List<Magazine> retreivedMagazines = getListOfMagazines();
 		ListIterator<Magazine> lim = retreivedMagazines.listIterator();
-		while (lim.hasNext()){
+		while (lim.hasNext()) {
 			Magazine currentMagazine = lim.next();
-			if (currentMagazine.getId() == id){
+			if (currentMagazine.getId() == id) {
 				Logger.log("Found a match");
 				return currentMagazine;
 			}
@@ -435,6 +467,52 @@ public class HibernateBookDao implements PublicationDao {
 		return null;
 	}
 
-	
+	@Override
+	public void unregisterBook(long id) {
+		Logger.log("Unregistering book in HibernateBookDao:unregisterBook");
+		Session s = sf.openSession();
+		Transaction tx = null;
+		try {
+			tx = s.beginTransaction();
+			Book b = new Book();
+			b.setId(id);
+			s.delete(b);
+			Logger.log("Successfull unregistering of book: " + b.getTitle());
+			tx.commit();
+
+		} catch (RuntimeException e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			throw e;
+		} finally {
+			s.close();
+		}
+		
+	}
+
+	@Override
+	public void unregisterMagazine(long id) {
+		Logger.log("Unregistering magazine in HibernateBookDao:unregisterMagazine");
+		Session s = sf.openSession();
+		Transaction tx = null;
+		try {
+			tx = s.beginTransaction();
+			Magazine m = new Magazine();
+			m.setId(id);
+			s.delete(m);
+			Logger.log("Successfull unregistering of publication: " + m.getTitle());
+			tx.commit();
+
+		} catch (RuntimeException e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			throw e;
+		} finally {
+			s.close();
+		}
+		
+	}
 
 }

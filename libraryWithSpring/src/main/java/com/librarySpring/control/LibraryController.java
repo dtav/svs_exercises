@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Scanner;
 
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -31,7 +32,7 @@ public class LibraryController {
 				System.out.println("Query ended");
 				break;
 			}
-			Integer toSwitch = Integer.parseInt(choice);
+			int toSwitch = NumberUtils.toInt(choice, 10);
 			switch (toSwitch) {
 			case 1:
 				libraryService.listPublications();
@@ -52,21 +53,17 @@ public class LibraryController {
 				break;
 			case 4:
 				System.out.print("Unregister\t 1. Book, 2. Magazine\n");
-				Integer unregisterChoice = Integer.parseInt(sc.nextLine());
+				int unregisterChoice = NumberUtils.toInt(sc.nextLine(),0);
 				if (unregisterChoice == 1) {
-					System.out.print("Enter book title: ");
-					String book = sc.nextLine();
-					Publication p = new Book();
-					p.setTitle(book);
-					libraryService.unregisterPublication(p);
+					libraryService.listBooks();
+					System.out.print("Enter book id: ");
+					long id = NumberUtils.toLong(sc.nextLine(), 0);
+					libraryService.unregisterBook(id);					
 				} else if (unregisterChoice == 2) {
-					System.out.print("Enter magazine title: ");
-					String magazine = sc.nextLine();
-					Publication p = new Magazine();
-					p.setTitle(magazine);
-					libraryService.unregisterPublication(p);
-				} else {
-					throw new RuntimeException();
+					libraryService.listMagazines();
+					System.out.print("Enter magazine id: ");
+					long id = NumberUtils.toLong(sc.nextLine(), 0);
+					libraryService.unregisterMagazine(id);		
 				}
 
 				break;

@@ -22,7 +22,7 @@ public interface PublicationDao {
 
 	public void updateRegistration(Publication p1, Publication p2);
 
-	public void unregisterPublication(Publication p);
+	public void unregisterPublication(long id);
 
 	public boolean validateEntry(Publication p);
 
@@ -39,5 +39,13 @@ public interface PublicationDao {
 	public void updateMagazine(Magazine mag);
 
 	public Magazine getMagazineByID(long id);
+
+	public void listBooks();
+
+	public void listMagazines();
+
+	public void unregisterBook(long id);
+
+	public void unregisterMagazine(long id);
 
 }

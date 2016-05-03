@@ -31,6 +31,14 @@ public class LibraryService {
 	public void listPublications() {
 		this.pubDao.listPublications();
 	}
+	
+	public void listBooks() {
+		this.pubDao.listBooks();
+	}
+	
+	public void listMagazines() {
+		this.pubDao.listMagazines();
+	}
 
 	public List<Publication> getListOfPublications() {
 		return this.pubDao.getListOfPublications();
@@ -65,8 +73,8 @@ public class LibraryService {
 		
 	}
 
-	public void unregisterPublication(Publication p) {
-		this.pubDao.unregisterPublication(p);
+	public void unregisterPublication(long id) {
+		this.pubDao.unregisterPublication(id);
 	}
 
 	public boolean validateEntry(Publication p) {
@@ -77,6 +85,12 @@ public class LibraryService {
 		return this.pubDao.getIdFromTitle(p);
 	}
 
+	public void unregisterBook(long id) {
+		this.pubDao.unregisterBook(id);
+	}
+	public void unregisterMagazine(long id) {
+		this.pubDao.unregisterMagazine(id);
+	}
 	
 
 	

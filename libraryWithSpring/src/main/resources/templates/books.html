@@ -14,14 +14,16 @@
 			<td th:text="${book.isbn}">ISBN</td>
 			<td>|</td>
 			<td th:text="${book.title}">Title</td>
+			<td><a th:href="@{/{id}(id=${book.id})}">Delete</a></td>
+
 		</tr>
 	</table>
 	<form action="#" th:action="@{/books}" th:object="${book}"
 		method="post">
-		<input type="hidden" th:field="*{id}" />
-		<input type="text" placeholder="input ISBN" th:field="*{isbn}" />
-		<input type="text" placeholder="input Title" th:field="*{title}" /> <br />
-		<input type="submit" value="Register book" />
+		<input type="hidden" th:field="*{id}" /> <input type="text"
+			placeholder="input ISBN" th:field="*{isbn}" /> <input type="text"
+			placeholder="input Title" th:field="*{title}" /> <br /> <input
+			type="submit" value="Register book" />
 	</form>
 	<a href="http://localhost:8080/magazines">See Magazines</a>
 </body>
