@@ -1,0 +1,12 @@
+CREATE TABLE tweet
+(
+   id serial, 
+   content character varying, 
+   username character varying, 
+   timestamp bigint, 
+   PRIMARY KEY (id)
+) 
+WITH (
+  OIDS = FALSE
+)
+;
