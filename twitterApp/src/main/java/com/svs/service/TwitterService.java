@@ -76,6 +76,18 @@ public class TwitterService {
 	public Timestamp hasBeenPostedOn(Tweet t){
 		return this.persistenceDao.hasBeenPostedOn(t);
 	}
+	
+	public void removeMember(Member m){
+		this.persistenceDao.removeMember(m);
+	}
+	
+	public void saveMember(Member m){
+		this.persistenceDao.saveMember(m);
+	}
+	
+	public void removeAllTweetsByMember(Member m){
+		this.persistenceDao.removeAllTweetsByMember(m);
+	}
 
 	
 }

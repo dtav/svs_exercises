@@ -22,6 +22,8 @@ public class Tweet  implements java.io.Serializable{
 	private Member member;
 
 	private Timestamp timestamp;
+	
+	
 
 	public Tweet(String content, Member member) {
 		this.content = content;
@@ -54,7 +56,7 @@ public class Tweet  implements java.io.Serializable{
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL) //resource hog if database is big
 	@JoinColumn(name = "member_id")
-	// @JsonManagedReference
+	@JsonManagedReference
 	public Member getMember() {
 		return member;
 	}
@@ -81,6 +83,8 @@ public class Tweet  implements java.io.Serializable{
 				+ this.getMember().getId() + "     " + this.getContent();
 		return ret;
 	}
+	
+	
 	
 	
 

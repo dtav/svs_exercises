@@ -33,6 +33,12 @@ public interface PersistenceDao {
 	public List<Member> getMemberList();
 
 	public Timestamp hasBeenPostedOn(Tweet t);
+
+	public void removeMember(Member m);
+
+	public void saveMember(Member m);
+
+	public void removeAllTweetsByMember(Member m);
 	
 	
 }

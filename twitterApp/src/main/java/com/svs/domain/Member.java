@@ -23,6 +23,8 @@ public class Member {
 	private String email;
 	
 	private Set<Tweet> tweets;
+	
+	
 
 	public Member() {
 		
@@ -58,7 +60,7 @@ public class Member {
 
 	
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="member",cascade=CascadeType.ALL)
-	// @JsonBackReference //solved json recursive loop problem
+	@JsonBackReference //solved json recursive loop problem
 	public Set<Tweet> getTweets() {
 		return tweets;
 	}
@@ -68,8 +70,9 @@ public class Member {
 	}
 
 	
-
-		
+	public int showNumTweets(){
+		return getTweets().size();
+	}
 	
 	
 

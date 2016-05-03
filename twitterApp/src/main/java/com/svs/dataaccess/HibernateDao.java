@@ -265,4 +265,58 @@ public class HibernateDao implements PersistenceDao {
 		return null;
 	}
 
+	@Override
+	public void removeMember(Member m) {
+		Session s = sessionFactory.openSession();
+		Transaction tx = null;
+		try {
+			tx = s.beginTransaction();
+			s.delete(m);
+			tx.commit();
+
+		} catch (RuntimeException e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			throw e;
+		} finally {
+			s.close();
+		}
+		
+	}
+	
+	@Override	
+	public void saveMember(Member m) {
+		Session s = sessionFactory.openSession();
+		Transaction tx = null;
+		try {
+			tx = s.beginTransaction();
+			s.saveOrUpdate(m);
+			tx.commit();
+
+		} catch (RuntimeException e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			throw e;
+		} finally {
+			s.close();
+		}
+
+	}
+
+	@Override
+	public void removeAllTweetsByMember(Member m) {
+		List<Tweet> allTweets = getTweetList();
+		ListIterator<Tweet> iterateAllTweets = allTweets.listIterator();
+		long member_id = m.getId();
+		while (iterateAllTweets.hasNext()){
+			Tweet currentTweet = iterateAllTweets.next();
+			if (currentTweet.getMember().getId() == member_id){
+				removeTweet(currentTweet);
+			}
+		}
+		
+	}
+
 }

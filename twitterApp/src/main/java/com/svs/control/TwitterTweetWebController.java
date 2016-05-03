@@ -18,7 +18,7 @@ import com.svs.service.TwitterService;
 
 @Controller
 @RequestMapping("/tweets")
-public class TwitterWebController {
+public class TwitterTweetWebController {
 
 	@Autowired
 	private TwitterService twitterService;
