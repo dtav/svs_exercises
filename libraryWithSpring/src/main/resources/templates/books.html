@@ -14,7 +14,7 @@
 			<td th:text="${book.isbn}">ISBN</td>
 			<td>|</td>
 			<td th:text="${book.title}">Title</td>
-			<td><a th:href="@{/{id}(id=${book.id})}">Delete</a></td>
+			<td><a th:href="@{/books/del/{id}(id=${book.id})}">Delete</a></td>
 
 		</tr>
 	</table>

@@ -15,6 +15,7 @@
 			<td th:text="${magazine.issn}">ISSN</td>
 			<td>|</td>
 			<td th:text="${magazine.title}">Title</td>
+			<td><a th:href="@{/magazines/del/{id}(id=${magazine.id})}">Delete</a></td>
 		</tr>
 	</table>
 	<form action="#" th:action="@{/magazines}" th:object="${magazine}"

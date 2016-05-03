@@ -14,31 +14,30 @@ import com.librarySpring.domain.Book;
 import com.librarySpring.service.LibraryService;
 import com.librarySpring.util.Logger;
 
-
 @Controller
 @RequestMapping("/books")
 public class BooksWebController {
-	
+
 	@Autowired
 	private LibraryService libraryService;
-	
+
 	@RequestMapping(method = RequestMethod.GET)
 	public String index() {
 		return "books";
 	}
-	
+
 	@ModelAttribute("book")
-	public Book book(){
-		return new Book();		
+	public Book book() {
+		return new Book();
 	}
-	
+
 	@ModelAttribute("books")
-	public List<Book> books(){
+	public List<Book> books() {
 		return libraryService.getListOfBooks();
 	}
-	
+
 	@RequestMapping(method = RequestMethod.POST)
-	public String registerBook(@ModelAttribute("book") Book book){
+	public String registerBook(@ModelAttribute("book") Book book) {
 		Book bookObj = new Book(book.getIsbn(), book.getTitle());
 		if (book.getId() == null) {
 			System.out.println("id is null");
@@ -49,12 +48,12 @@ public class BooksWebController {
 		}
 		return "redirect:/books";
 	}
-	
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public String editEntry(@PathVariable("id") Long id, Model model){
-		Book book = libraryService.getBookByID(id);
-		Logger.log("DEBUG");
-		System.out.println(book.toString());
+
+	@RequestMapping(value = "/del/{id}", method = RequestMethod.GET)
+	public String deleteEntry(@PathVariable("id") long id) {
+
+		Logger.log("DEBUG IN");
+		libraryService.unregisterBook(id);
 		return "redirect:/books";
 	}
 

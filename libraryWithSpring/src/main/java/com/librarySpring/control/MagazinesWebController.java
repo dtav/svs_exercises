@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.librarySpring.domain.Magazine;
 import com.librarySpring.service.LibraryService;
+import com.librarySpring.util.Logger;
 
 
 @Controller
@@ -19,7 +20,7 @@ import com.librarySpring.service.LibraryService;
 public class MagazinesWebController {
 	
 	@Autowired
-	private LibraryService libraryService2;
+	private LibraryService libraryService;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String index() {
@@ -33,7 +34,7 @@ public class MagazinesWebController {
 	
 	@ModelAttribute("magazines")
 	public List<Magazine> magazines(){
-		return libraryService2.getListOfMagazines();
+		return libraryService.getListOfMagazines();
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
@@ -41,17 +42,19 @@ public class MagazinesWebController {
 		Magazine magazineObj = new Magazine(magazine.getIssn(), magazine.getTitle());
 		if (magazine.getId() == null) {
 			System.out.println("id is null");
-			libraryService2.registerMagazine(magazineObj);
+			libraryService.registerMagazine(magazineObj);
 		} else {
 			System.out.println("id is NOT null");
-			libraryService2.updateMagazine(magazineObj);
+			libraryService.updateMagazine(magazineObj);
 		}
 		return "redirect:/magazines";
 	}
 	
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public String editEntry(@PathVariable("id") Long id, Model model){
-		Magazine magazine = libraryService2.getMagazineByID(id);
+	@RequestMapping(value = "/del/{id}", method = RequestMethod.GET)
+	public String deleteEntry(@PathVariable("id") long id) {
+
+		Logger.log("DEBUG IN MAG");
+		libraryService.unregisterMagazine(id);
 		return "redirect:/magazines";
 	}
 
