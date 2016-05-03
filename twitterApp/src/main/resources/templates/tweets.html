@@ -22,66 +22,70 @@
 	</div>
 	<hr></hr>
 
-	<section id="wrap">
-		<div id="left_col">
-			<form action="#" th:action="@{/tweets}" th:object="${tweet}"
-				method="post">
+	<!-- <section id="wrap">
+		<div id="left_col"> -->
+	<div id="inputDiv">
+		<form action="#" th:action="@{/tweets}" th:object="${tweet}"
+			method="post">
 
-				<table>
-					<tr>
+			<table>
+				<tr>
 
-						<td><input type="hidden" th:field="*{id}"></input></td>
+					<td><input type="hidden" th:field="*{id}"></input></td>
 
-					</tr>
+				</tr>
 
-					<tr>
-						<td><label for="cont">Content: </label></td>
-						<td><input id="cont" type="text" placeholder="input Content"
-							th:field="*{content}"></input></td>
-					</tr>
-					<tr>
-						<td><label for="uname">Username: </label></td>
-						<td><input id="uname" type="text"
-							placeholder="input Username" th:field="*{member.username}"></input>
-						</td>
-					</tr>
-				</table>
+				<tr>
+					<td><p align="right">Content:</p></td>
+					<td><input size="50" id="cont" type="text"
+						placeholder="input Content" th:field="*{content}"></input></td>
+				</tr>
+				<tr>
+					<td><p align="right">Username:</p></td>
+					<td><input size="35" id="uname" type="text"
+						placeholder="input Username" th:field="*{member.username}"></input></td>
+				</tr>
+				<tr>
+					<td colspan="2"><input type="submit"
+						value="Register/Edit tweet"></input></td>
+				</tr>
+			</table>
 
-				<input type="submit" value="Register/Edit tweet"></input>
-			</form>
 
-		</div>
+		</form>
+	</div>
+
+	<!-- </div>
 		<div class="verticalLine">
 		<input type="hidden"></input>
 		</div>
-		<div id="right_col">
-			<div class="scrollingtable">
-				<div id="table-wrapper">
-					<div id="table-scroll">
-						<table>
-							<thead>
-								<tr>
-									<th><div label="Tweet"></div></th>
-									<th><div label="User"></div></th>
-									<th><div label="Time"></div></th>
-									<th class="scrollbarhead"></th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr th:each="tweet: ${tweets}">
-									<td th:text="${tweet.content}">Content</td>
-									<td th:text="${tweet.member.username}">Username</td>
-									<td th:text="${tweet.timestamp}">Timestamp</td>
-									<td><a
-										th:href="@{/tweets/deleteTweet/{id}(id=${tweet.id})}">Remove</a></td>
-									<td><a th:href="@{/tweets/editTweet/{id}(id=${tweet.id})}">Edit</a></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
+		<div id="right_col"> -->
+	<div class="scrollingtable">
+		<div id="table-wrapper">
+			<div id="table-scroll">
+				<table>
+					<thead>
+						<tr>
+							<th><div label="Tweet"></div></th>
+							<th><div label="User"></div></th>
+							<th><div label="Time"></div></th>
+							<th class="scrollbarhead"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="tweet: ${tweets}">
+							<td th:text="${tweet.content}">Content</td>
+							<td th:text="${tweet.member.username}">Username</td>
+							<td th:text="${tweet.timestamp}">Timestamp</td>
+							<td><a th:href="@{/tweets/deleteTweet/{id}(id=${tweet.id})}">Remove</a></td>
+							<td><a th:href="@{/tweets/editTweet/{id}(id=${tweet.id})}">Edit</a></td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
-	</section>
+	</div>
+	<!-- </div>
+	</section> -->
 </body>
 </html>

@@ -8,27 +8,9 @@ section {
 	color: green;
 }
 
-#wrap {
-	width: 700px;
+#inputDiv{
+	width: 50%;
 	margin: 0 auto;
-}
-
-#left_col {
-	background-color: #99ccff;
-	float: left;
-	width: 35%;
-	margin: 5px;
-}
-
-.verticalLine {
-	border-left: thick solid #ff0000;
-	margin: 1px;
-}
-
-#right_col {
-	float: right;
-	width: 60%;
-	margin: 5px;
 }
 /* div#left {
 	background-color: #99ccff;
