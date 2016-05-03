@@ -18,7 +18,7 @@ import com.svs.service.TwitterService;
 
 @Controller
 @RequestMapping("/members")
-public class TwitterUserWebController {
+public class TwitterMemberWebController {
 
 	@Autowired
 	private TwitterService twitterService;
@@ -43,7 +43,9 @@ public class TwitterUserWebController {
 	@RequestMapping(method = RequestMethod.POST)
 	public String registerMember(@ModelAttribute("member") Member member) {
 		Member newMember = new Member();
-		newMember.setUsername(member.getUsername());		
+		newMember.setUsername(member.getUsername());
+		newMember.setEmail(member.getEmail());
+		this.twitterService.saveMember(newMember);
 		return "redirect:/members";
 	}
 
