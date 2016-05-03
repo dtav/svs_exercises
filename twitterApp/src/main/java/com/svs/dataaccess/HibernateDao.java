@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.ListIterator;
 
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -27,7 +28,7 @@ public class HibernateDao implements PersistenceDao {
 	}
 
 	public List<Tweet> getTweetList() {
-		
+
 		Session s = null;
 		List<Tweet> results = new ArrayList<Tweet>();
 		try {
@@ -44,13 +45,30 @@ public class HibernateDao implements PersistenceDao {
 
 	}
 
+	public List<Member> getMemberList() {
+
+		Session s = null;
+		List<Member> results = new ArrayList<Member>();
+		try {
+			s = this.sessionFactory.openSession();
+			Query q = s.createQuery("from Member");
+			results = q.list();
+			return results;
+		} catch (RuntimeException re) {
+			re.printStackTrace();
+		} finally {
+			s.close();
+		}
+		return results;
+
+	}
 	@Override
 	public void saveTweet(Tweet t) {
 		Session s = sessionFactory.openSession();
 		Transaction tx = null;
 		try {
 			tx = s.beginTransaction();
-			s.save(t);
+			s.saveOrUpdate(t);
 			tx.commit();
 
 		} catch (RuntimeException e) {
@@ -62,6 +80,27 @@ public class HibernateDao implements PersistenceDao {
 			s.close();
 		}
 
+	}
+
+	public void editTweet(Tweet t){
+		Session s = sessionFactory.openSession();
+		Transaction tx = null;
+		try {
+			String newContent = t.getContent();
+			String q = "update tweet set content='"+newContent+"' where id="+t.getId()+"";
+			tx = s.beginTransaction();
+			s.createSQLQuery(q);
+			System.out.println("edit ENTERED AND CREATED QUERY");
+			tx.commit();
+
+		} catch (RuntimeException e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			throw e;
+		} finally {
+			s.close();
+		}
 	}
 
 	@Override
@@ -148,14 +187,14 @@ public class HibernateDao implements PersistenceDao {
 	public List<TweetSimple> listSimpleTweets(List<Tweet> normalTweets) {
 		List<TweetSimple> twSimple = new ArrayList<TweetSimple>();
 		ListIterator<Tweet> liNormal = normalTweets.listIterator();
-		while (liNormal.hasNext()){
+		while (liNormal.hasNext()) {
 			Tweet tn = liNormal.next();
 			TweetSimple ts = new TweetSimple();
 			ts.setContent(tn.getContent());
 			ts.setId(tn.getId());
 			ts.setMember_id(tn.getMember().getId());
 			ts.setTimestamp(tn.getTimestamp());
-			twSimple.add(ts);			
+			twSimple.add(ts);
 		}
 		return twSimple;
 	}
@@ -177,7 +216,34 @@ public class HibernateDao implements PersistenceDao {
 		} finally {
 			s.close();
 		}
-		
+
+	}
+
+	public Tweet getTweetById(long id) {
+		List<Tweet> allTweets = getTweetList();
+		ListIterator<Tweet> tweetListIterator = allTweets.listIterator();
+		while (tweetListIterator.hasNext()) {
+			Tweet currentTweet = tweetListIterator.next();
+			if (currentTweet.getId() == id) {
+				return currentTweet;
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public Member getMemberByUsername(String username) {
+		List<Member> allMembers = getMemberList();
+		ListIterator<Member> iterateMembers = allMembers.listIterator();
+		while(iterateMembers.hasNext()){
+			Member currentMember = iterateMembers.next();
+			if (currentMember.getUsername() != null){
+				if (currentMember.getUsername().equalsIgnoreCase(username)){
+					return currentMember;
+				}
+			}
+		}
+		return null;
 	}
 
 }

@@ -3,6 +3,7 @@ package com.svs.dataaccess;
 import java.util.Date;
 import java.util.List;
 
+import com.svs.domain.Member;
 import com.svs.domain.Tweet;
 import com.svs.domain.TweetSimple;
 
@@ -21,6 +22,14 @@ public interface PersistenceDao {
 	public List<TweetSimple> listSimpleTweets(List<Tweet> normalTweets);
 
 	public void removeTweet(Tweet t);
+
+	public Tweet getTweetById(long id);
+
+	public void editTweet(Tweet t);
+
+	public Member getMemberByUsername(String username);
+
+	public List<Member> getMemberList();
 	
 	
 }

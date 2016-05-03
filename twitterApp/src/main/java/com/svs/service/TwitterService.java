@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.svs.dataaccess.PersistenceDao;
+import com.svs.domain.Member;
 import com.svs.domain.Tweet;
 import com.svs.domain.TweetSimple;
 
@@ -32,6 +33,10 @@ public class TwitterService {
 		this.persistenceDao.removeTweet(t);
 	}
 	
+	public void editTweet(Tweet t){
+		this.persistenceDao.editTweet(t);
+	}
+	
 	public List<Tweet> getTweetListByUserName(String username){
 		return this.persistenceDao.getTweetListByUserName(username);
 	}
@@ -55,7 +60,17 @@ public class TwitterService {
 		return this.persistenceDao.listSimpleTweets(normalTweets);
 	}
 
+	public Tweet getTweetById(long id){
+		return this.persistenceDao.getTweetById(id);
+	}
 	
+	public Member getMemberByUsername(String username){
+		return this.persistenceDao.getMemberByUsername(username);
+	}
+	
+	public List<Member> getMemberList(){
+		return this.persistenceDao.getMemberList();
+	}
 
 	
 }

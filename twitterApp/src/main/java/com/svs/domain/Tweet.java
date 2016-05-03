@@ -54,7 +54,7 @@ public class Tweet  implements java.io.Serializable{
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL) //resource hog if database is big
 	@JoinColumn(name = "member_id")
-	 @JsonManagedReference
+	// @JsonManagedReference
 	public Member getMember() {
 		return member;
 	}

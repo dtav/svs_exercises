@@ -23,6 +23,14 @@
 					th:field="*{member.username}" /> <input type="submit"
 					value="Register tweet" />
 			</form>
+			<form action="#" th:action="@{/tweets}" th:object="${tweetEdit}"
+				method="post">
+				<input type="hidden" th:field="*{id}" /> <input type="text"
+					placeholder="input Content" th:field="*{content}" /> <input
+					type="text" placeholder="input Username"
+					th:field="*{member.username}" /> <input type="submit"
+					value="Edit tweet" />
+			</form>
 		</div>
 		<div class="scrollingtable">
 			<div id="table-wrapper">
@@ -42,6 +50,7 @@
 								<td th:text="${tweet.member.username}">Username</td>
 								<td th:text="${tweet.timestamp}">Timestamp</td>
 								<td><a th:href="@{/tweets/deleteTweet/{id}(id=${tweet.id})}">Remove</a></td>
+								<td><a th:href="@{/tweets/editTweet/{id}(id=${tweet.id})}">Edit</a></td>
 							</tr>
 						</tbody>
 					</table>

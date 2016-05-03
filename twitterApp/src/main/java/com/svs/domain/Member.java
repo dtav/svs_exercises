@@ -13,10 +13,11 @@ import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-public class Member implements java.io.Serializable {
+public class Member {
 
 	private long id;
 	
+	@Column(name="username",unique=true)
 	private String username;
 	
 	private String email;
@@ -37,7 +38,7 @@ public class Member implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@Column(name="username",unique=true)
+	
 	public String getUsername() {
 		return username;
 	}
@@ -46,7 +47,7 @@ public class Member implements java.io.Serializable {
 		this.username = username;
 	}
 
-	@Column(name="email",unique=true)
+	@Column(name="email")
 	public String getEmail() {
 		return email;
 	}
@@ -57,7 +58,7 @@ public class Member implements java.io.Serializable {
 
 	
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="member",cascade=CascadeType.ALL)
-	 @JsonBackReference //solved json recursive loop problem
+	// @JsonBackReference //solved json recursive loop problem
 	public Set<Tweet> getTweets() {
 		return tweets;
 	}
