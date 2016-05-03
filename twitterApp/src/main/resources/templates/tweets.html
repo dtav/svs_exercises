@@ -17,20 +17,30 @@
 		<div id="left">
 			<form action="#" th:action="@{/tweets}" th:object="${tweet}"
 				method="post">
-				<input type="hidden" th:field="*{id}" /> <input type="text"
-					placeholder="input Content" th:field="*{content}" /> <input
-					type="text" placeholder="input Username"
-					th:field="*{member.username}" /> <input type="submit"
-					value="Register tweet" />
+
+				<table>
+					<tr>
+					<td>
+					<td><input type="hidden" 
+							th:field="*{id}"></input></td>
+					</td>
+					</tr>
+				
+					<tr>
+						<td><label for="cont">Content: </label></td>
+						<td><input id="cont" type="text" placeholder="input Content"
+							th:field="*{content}"></input></td>
+					</tr>
+					<tr>
+						<td><label for="uname">Username: </label></td>
+						<td><input id="uname" type="text"
+							placeholder="input Username" th:field="*{member.username}"></input> </td>
+					</tr>
+				</table>
+
+				<input type="submit" value="Register/Edit tweet"></input>
 			</form>
-			<form action="#" th:action="@{/tweets}" th:object="${tweetEdit}"
-				method="post">
-				<input type="hidden" th:field="*{id}" /> <input type="text"
-					placeholder="input Content" th:field="*{content}" /> <input
-					type="text" placeholder="input Username"
-					th:field="*{member.username}" /> <input type="submit"
-					value="Edit tweet" />
-			</form>
+
 		</div>
 		<div class="scrollingtable">
 			<div id="table-wrapper">
@@ -49,7 +59,8 @@
 								<td th:text="${tweet.content}">Content</td>
 								<td th:text="${tweet.member.username}">Username</td>
 								<td th:text="${tweet.timestamp}">Timestamp</td>
-								<td><a th:href="@{/tweets/deleteTweet/{id}(id=${tweet.id})}">Remove</a></td>
+								<td><a
+									th:href="@{/tweets/deleteTweet/{id}(id=${tweet.id})}">Remove</a></td>
 								<td><a th:href="@{/tweets/editTweet/{id}(id=${tweet.id})}">Edit</a></td>
 							</tr>
 						</tbody>

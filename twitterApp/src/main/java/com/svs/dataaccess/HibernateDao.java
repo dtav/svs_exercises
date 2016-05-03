@@ -62,6 +62,7 @@ public class HibernateDao implements PersistenceDao {
 		return results;
 
 	}
+
 	@Override
 	public void saveTweet(Tweet t) {
 		Session s = sessionFactory.openSession();
@@ -82,15 +83,17 @@ public class HibernateDao implements PersistenceDao {
 
 	}
 
-	public void editTweet(Tweet t){
+	public void editTweet(Tweet t) {
 		Session s = sessionFactory.openSession();
 		Transaction tx = null;
 		try {
-			String newContent = t.getContent();
-			String q = "update tweet set content='"+newContent+"' where id="+t.getId()+"";
 			tx = s.beginTransaction();
-			s.createSQLQuery(q);
-			System.out.println("edit ENTERED AND CREATED QUERY");
+			String newContent = t.getContent();
+			long id = t.getId();
+			Query q = s.createQuery("update Tweet set content = :newContent" + " where id= :oldID");
+			q.setParameter("newContent", newContent);
+			q.setParameter("oldID", id);
+			q.executeUpdate();
 			tx.commit();
 
 		} catch (RuntimeException e) {
@@ -235,11 +238,27 @@ public class HibernateDao implements PersistenceDao {
 	public Member getMemberByUsername(String username) {
 		List<Member> allMembers = getMemberList();
 		ListIterator<Member> iterateMembers = allMembers.listIterator();
-		while(iterateMembers.hasNext()){
+		while (iterateMembers.hasNext()) {
 			Member currentMember = iterateMembers.next();
-			if (currentMember.getUsername() != null){
-				if (currentMember.getUsername().equalsIgnoreCase(username)){
+			if (currentMember.getUsername() != null) {
+				if (currentMember.getUsername().equalsIgnoreCase(username)) {
 					return currentMember;
+				}
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public Timestamp hasBeenPostedOn(Tweet t) {
+		List<Tweet> allTweets = getTweetList();
+		ListIterator<Tweet> iterateAllTweets = allTweets.listIterator();
+		while (iterateAllTweets.hasNext()) {
+			Tweet currentTweet = iterateAllTweets.next();
+			if (currentTweet.getContent().equals(t.getContent())) {
+				if (currentTweet.getMember().getUsername().equals(t.getMember().getUsername())) {
+					System.out.println("Have same username and content");
+					return currentTweet.getTimestamp();
 				}
 			}
 		}

@@ -1,5 +1,6 @@
 package com.svs.dataaccess;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -30,6 +31,8 @@ public interface PersistenceDao {
 	public Member getMemberByUsername(String username);
 
 	public List<Member> getMemberList();
+
+	public Timestamp hasBeenPostedOn(Tweet t);
 	
 	
 }

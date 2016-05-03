@@ -1,5 +1,6 @@
 package com.svs.service;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -70,6 +71,10 @@ public class TwitterService {
 	
 	public List<Member> getMemberList(){
 		return this.persistenceDao.getMemberList();
+	}
+	
+	public Timestamp hasBeenPostedOn(Tweet t){
+		return this.persistenceDao.hasBeenPostedOn(t);
 	}
 
 	

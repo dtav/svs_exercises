@@ -32,8 +32,7 @@ public class TwitterWebController {
 	public Tweet tweet() {
 		return new Tweet();
 	}
-	
-	
+
 	@ModelAttribute("tweetEdit")
 	public Tweet tweetEdit() {
 		return new Tweet();
@@ -51,12 +50,33 @@ public class TwitterWebController {
 	public String registerTweet(@ModelAttribute("tweet") Tweet tweet) {
 		System.out.println("VO Register POST");
 
-		Tweet tw = new Tweet(tweet.getContent(), tweet.getMember());
-		twitterService.saveTweet(tw);
+		//Timestamp ts = twitterService.hasBeenPostedOn(tweet);
+		System.out.println("member name: "+ tweet.getMember().getUsername());
+		System.out.println("ID: " +tweet.getId());
+		
+		if (tweet.getId() != 0) {
+			System.out.println("VO EDIT POST");
+			Tweet newTweet = new Tweet();
+			newTweet.setContent(tweet.getContent());
+			newTweet.setId(tweet.getId());
+			twitterService.editTweet(newTweet);
+		} else {
+			Member sender;
+			String username = tweet.getMember().getUsername();
+			if (twitterService.getMemberByUsername(username) != null) {
+				sender = twitterService.getMemberByUsername(username);
+			} else {
+				sender = new Member();
+				sender.setUsername(username);
+			}
+
+			Tweet tw = new Tweet(tweet.getContent(), sender);
+			twitterService.saveTweet(tw);
+		}
 		return "redirect:/tweets";
 	}
-	
-	@RequestMapping(value="editTweet",method = RequestMethod.POST)
+
+	@RequestMapping(value = "editTweet", method = RequestMethod.POST)
 	public String editTweetPost(@ModelAttribute("tweetEdit") Tweet tweet) {
 		System.out.println("VO EDIT POST");
 		String newContent = tweet.getContent();
@@ -66,12 +86,12 @@ public class TwitterWebController {
 		newTweet.setContent(newContent);
 		newTweet.setMember(sameUser);
 		newTweet.setTimestamp(sameTimestamp);
-		newTweet.setId(tweet.getId());		
+		newTweet.setId(tweet.getId());
 		twitterService.editTweet(newTweet);
 		return "redirect:/tweets";
 	}
 
-	@RequestMapping(value="/deleteTweet/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/deleteTweet/{id}", method = RequestMethod.GET)
 	public String deleteTweet(@PathVariable("id") long id) {
 		Tweet t = new Tweet();
 		t.setId(id);
@@ -79,11 +99,11 @@ public class TwitterWebController {
 		System.out.println("TROLOLOLOLO");
 		return "redirect:/tweets";
 	}
-	
+
 	@RequestMapping(value = "/editTweet/{id}", method = RequestMethod.GET)
 	public String editTweet(@PathVariable("id") Long id, Model model) {
 		final Tweet tweet = twitterService.getTweetById(id);
-		model.addAttribute("tweetEdit", tweet);
+		model.addAttribute("tweet", tweet);
 		return "tweets";
 	}
 
