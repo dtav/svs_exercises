@@ -14,6 +14,24 @@ div#left {
 	float: left;
 }
 
+/* #imgDivSpring {
+	background-image: url("spring.png");
+	background-repeat: no-repeat;
+	width: 64; or your image's width
+	height: 64; or your image's height
+	margin: 5;
+	padding: 5;
+}
+
+#imgDivTwitter{
+	background-image: url("images/twitter-128.png");
+	background-repeat: no-repeat;
+	width: 64; or your image's width
+	height: 64; or your image's height
+	margin: 5;
+	padding: 5;
+} */
+
 /* #table-wrapper { */
 /*   position:relative; */
 

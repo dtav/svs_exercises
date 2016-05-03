@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 <head>
-<link rel="stylesheet" th:href="@{/assets/css/basic.css}"
+<link rel="stylesheet" th:href="@{/assets/css/tweets.css}"
 	type="text/css" />
 </head>
 <body>
@@ -11,8 +11,9 @@
 		<img alt="err" src="images/spring.png"
 			style="width: 64px; height: 64px;"></img> <img alt="err"
 			src="images/twitter-128.png" style="width: 64px; height: 64px;"></img>
-		<hr></hr>
 	</div>
+	<hr></hr>
+
 	<section>
 		<div id="left">
 			<form action="#" th:action="@{/tweets}" th:object="${tweet}"
@@ -20,12 +21,11 @@
 
 				<table>
 					<tr>
-					<td>
-					<td><input type="hidden" 
-							th:field="*{id}"></input></td>
-					</td>
+						
+						<td><input type="hidden" th:field="*{id}"></input></td>
+						
 					</tr>
-				
+
 					<tr>
 						<td><label for="cont">Content: </label></td>
 						<td><input id="cont" type="text" placeholder="input Content"
@@ -34,7 +34,8 @@
 					<tr>
 						<td><label for="uname">Username: </label></td>
 						<td><input id="uname" type="text"
-							placeholder="input Username" th:field="*{member.username}"></input> </td>
+							placeholder="input Username" th:field="*{member.username}"></input>
+						</td>
 					</tr>
 				</table>
 
@@ -69,7 +70,5 @@
 			</div>
 		</div>
 	</section>
-
-
 </body>
 </html>

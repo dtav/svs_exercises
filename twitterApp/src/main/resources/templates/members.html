@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 <head>
-<link rel="stylesheet" th:href="@{/assets/css/basic.css}"
+<link rel="stylesheet" th:href="@{/assets/css/members.css}"
 	type="text/css" />
 </head>
 <body>
@@ -11,8 +11,9 @@
 		<img alt="err" src="images/spring.png"
 			style="width: 64px; height: 64px;"></img> <img alt="err"
 			src="images/twitter-128.png" style="width: 64px; height: 64px;"></img>
-		<hr></hr>
 	</div>
+	<hr></hr>
+
 	<section>
 		<div id="left">
 			<form action="#" th:action="@{/members}" th:object="${member}"
