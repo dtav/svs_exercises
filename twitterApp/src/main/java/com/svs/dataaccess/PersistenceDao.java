@@ -19,6 +19,8 @@ public interface PersistenceDao {
 	public List<Tweet> getTweetListLaterThan(Date d);
 
 	public List<TweetSimple> listSimpleTweets(List<Tweet> normalTweets);
+
+	public void removeTweet(Tweet t);
 	
 	
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -44,14 +45,13 @@ public class TwitterWebController {
 		return "redirect:/tweets";
 	}
 
-//	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-//	public String editEntry(@PathVariable("id") Long id, Model model) {
-//		Tweet tweet = twitterService.getTweetByID(id);
-//		if (tweet != null) {
-//			System.out.println(tweet.toString());
-//		}
-//		return "redirect:/books";
-//
-//	}
+	@RequestMapping(value="/deleteTweet/{id}", method = RequestMethod.GET)
+	public String deleteSimpleObject(@PathVariable("id") long id) {
+		Tweet t = new Tweet();
+		t.setId(id);
+		this.twitterService.removeTweet(t);
+		System.out.println("TROLOLOLOLO");
+		return "redirect:/tweets";
+	}
 
 }

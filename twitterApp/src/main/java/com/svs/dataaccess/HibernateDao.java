@@ -160,4 +160,24 @@ public class HibernateDao implements PersistenceDao {
 		return twSimple;
 	}
 
+	@Override
+	public void removeTweet(Tweet t) {
+		Session s = sessionFactory.openSession();
+		Transaction tx = null;
+		try {
+			tx = s.beginTransaction();
+			s.delete(t);
+			tx.commit();
+
+		} catch (RuntimeException e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			throw e;
+		} finally {
+			s.close();
+		}
+		
+	}
+
 }

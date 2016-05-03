@@ -41,6 +41,7 @@
 								<td th:text="${tweet.content}">Content</td>
 								<td th:text="${tweet.member.username}">Username</td>
 								<td th:text="${tweet.timestamp}">Timestamp</td>
+								<td><a th:href="@{/tweets/deleteTweet/{id}(id=${tweet.id})}">Remove</a></td>
 							</tr>
 						</tbody>
 					</table>

@@ -28,6 +28,10 @@ public class TwitterService {
 		this.persistenceDao.saveTweet(t);
 	}
 	
+	public void removeTweet(Tweet t){
+		this.persistenceDao.removeTweet(t);
+	}
+	
 	public List<Tweet> getTweetListByUserName(String username){
 		return this.persistenceDao.getTweetListByUserName(username);
 	}
