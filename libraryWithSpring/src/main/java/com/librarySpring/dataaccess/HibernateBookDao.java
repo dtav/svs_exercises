@@ -15,6 +15,7 @@ import com.librarySpring.domain.Book;
 import com.librarySpring.domain.Loan;
 import com.librarySpring.domain.Magazine;
 import com.librarySpring.domain.Member;
+import com.librarySpring.domain.Membership;
 import com.librarySpring.domain.Publication;
 import com.librarySpring.util.Logger;
 
@@ -490,7 +491,7 @@ public class HibernateBookDao implements PublicationDao {
 		} finally {
 			s.close();
 		}
-		
+
 	}
 
 	@Override
@@ -514,7 +515,7 @@ public class HibernateBookDao implements PublicationDao {
 		} finally {
 			s.close();
 		}
-		
+
 	}
 
 	@Override
@@ -536,7 +537,7 @@ public class HibernateBookDao implements PublicationDao {
 		} finally {
 			s.close();
 		}
-		
+
 	}
 
 	@Override
@@ -547,7 +548,30 @@ public class HibernateBookDao implements PublicationDao {
 		try {
 			tx = s.beginTransaction();
 			s.save(l);
-			Logger.log("Successfull creation of loan by: " + l.getMember().getName() + " for publication: "+ l.getPub().getTitle());
+			Logger.log("Successfull creation of loan by: " + l.getMember().getName() + " for publication: "
+					+ l.getPub().getTitle());
+			tx.commit();
+
+		} catch (RuntimeException e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			throw e;
+		} finally {
+			s.close();
+		}
+
+	}
+
+	@Override
+	public void saveMembership(Membership m) {
+		Logger.log("Saving membership with member in HibernateBookDao:saveMembership");
+		Session s = sf.openSession();
+		Transaction tx = null;
+		try {
+			tx = s.beginTransaction();
+			s.save(m);
+			Logger.log("Successfull creation of  "+m.getType() +" membership for: " + m.getMember().getName());
 			tx.commit();
 
 		} catch (RuntimeException e) {
@@ -559,6 +583,114 @@ public class HibernateBookDao implements PublicationDao {
 			s.close();
 		}
 		
+	}
+
+	@Override
+	public void listMembers() {
+		Logger.log("Listing Members in HibernateBookDao:listMembers");
+		Session s = null;
+		try {
+			s = this.sf.openSession();
+			Query q = s.createQuery("from Member");
+			List<Member> results = q.list();
+
+			for (Member m : results) {
+				System.out.println(m.toString());
+			}
+		} catch (RuntimeException re) {
+			re.printStackTrace();
+		} finally {
+			s.close();
+		}
+		
+	}
+
+	@Override
+	public void listMemberships() {
+		Logger.log("Listing Memberships in HibernateBookDao:listMemberships");
+		Session s = null;
+		try {
+			s = this.sf.openSession();
+			Query q = s.createQuery("from Membership");
+			List<Membership> results = q.list();
+
+			for (Membership m : results) {
+				System.out.println(m.toString());
+			}
+		} catch (RuntimeException re) {
+			re.printStackTrace();
+		} finally {
+			s.close();
+		}
+		
+	}
+
+	@Override
+	public Publication getPublicationByID(long id) {
+		Logger.log("returning Publication from ID in HibernateBookDao:getPublicationByID(long id)");
+		List<Publication> retreivedPublications = getListOfPublications();
+		ListIterator<Publication> lip = retreivedPublications.listIterator();
+		while (lip.hasNext()) {
+			Publication currentPub = lip.next();
+			if (currentPub.getId() == id) {
+				Logger.log("Found a match");
+				return currentPub;
+			}
+		}
+		Logger.log("Didn't find a match");
+		return null;
+	}
+
+	
+	@Override
+	public Member getMemberByID(long id) {
+		Logger.log("returning Member from ID in HibernateBookDao:getMemberByID(long id)");
+		List<Member> retreivedMembers = getListOfMembers();
+		ListIterator<Member> iterateMembers = retreivedMembers.listIterator();
+		while (iterateMembers.hasNext()) {
+			Member currentMember = iterateMembers.next();
+			if (currentMember.getId() == id) {
+				Logger.log("Found a match");
+				return currentMember;
+			}
+		}
+		Logger.log("Didn't find a match");
+		return null;
+	}
+
+	@Override
+	public List<Member> getListOfMembers() {
+		Logger.log("Returning List<Member> in HibernateBookDao:getListOfMembers()");
+		Session s = null;
+		List<Member> results = new ArrayList<Member>();
+		try {
+			s = this.sf.openSession();
+			Query q = s.createQuery("from Member");
+			results = q.list();
+			return results;
+		} catch (RuntimeException re) {
+			re.printStackTrace();
+		} finally {
+			s.close();
+		}
+		return results;
+		
+	}
+
+	@Override
+	public long getMemberIdByName(String name) {
+		Logger.log("returning Member id from name in HibernateBookDao:getMemberIdByName(String name)");
+		List<Member> retreivedMembers = getListOfMembers();
+		ListIterator<Member> iterateMembers = retreivedMembers.listIterator();
+		while (iterateMembers.hasNext()) {
+			Member currentMember = iterateMembers.next();
+			if (currentMember.getName().equals(name)) {
+				Logger.log("Found a match");
+				return currentMember.getId();
+			}
+		}
+		Logger.log("Didn't find a match");
+		return 0;
 	}
 
 }

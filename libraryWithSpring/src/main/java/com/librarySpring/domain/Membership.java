@@ -2,6 +2,7 @@ package com.librarySpring.domain;
 
 import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,18 +13,20 @@ public class Membership {
 	@Id
 	@GeneratedValue
 	private long id;
-	
-	private Timestamp startdate;
-	
-	private Timestamp enddate;
-	
-	private String type;
-	
-	@OneToOne
-	private Member member;
 
+	private Timestamp startdate;
+
+	private Timestamp enddate;
+
+	private String type;
+
+	@OneToOne(cascade=CascadeType.ALL)
+	private Member member;
 	
-	
+public Membership() {
+	// TODO Auto-generated constructor stub
+}
+
 	public Membership(Timestamp startdate, Timestamp enddate, String type, Member member) {
 		this.startdate = startdate;
 		this.enddate = enddate;
@@ -70,7 +73,11 @@ public class Membership {
 	public void setMember(Member member) {
 		this.member = member;
 	}
-	
-	
-	
+
+	public String toString() {
+		String ret = "MEMBERSHIP: " + id + "   " + startdate + " <-> " + enddate + "   [" + type + "]   "
+				+ member.getName();
+		return ret;
+	}
+
 }

@@ -10,6 +10,7 @@ import com.librarySpring.domain.Book;
 import com.librarySpring.domain.Loan;
 import com.librarySpring.domain.Magazine;
 import com.librarySpring.domain.Member;
+import com.librarySpring.domain.Membership;
 import com.librarySpring.domain.Publication;
 
 @Component
@@ -62,6 +63,9 @@ public class LibraryService {
 		return this.pubDao.getMagazineByID(id);
 	}
 
+	public Publication getPublicationByID(long id){
+		return this.pubDao.getPublicationByID(id);
+	}
 	public void updateRegistration(Publication p1, Publication p2) {
 		this.pubDao.updateRegistration(p1, p2);
 	}
@@ -101,7 +105,30 @@ public class LibraryService {
 	public void makeLoan(Loan l){
 		this.pubDao.makeLoan(l);
 	}
+	
+	public void saveMembership(Membership m){
+		this.pubDao.saveMembership(m);
+	}
 
+	public void listMemberships(){
+		this.pubDao.listMemberships();
+	}
+
+	public void listMembers(){
+		this.pubDao.listMembers();
+	}
+	
+	public Member getMemberByID(long id){
+		return this.pubDao.getMemberByID(id);
+	}
+	
+	public List<Member> getListOfMembers(){
+		return this.pubDao.getListOfMembers();
+	}
+	
+	public long getMemberIdByName(String name){
+		return this.pubDao.getMemberIdByName(name);
+	}
 	
 
 }

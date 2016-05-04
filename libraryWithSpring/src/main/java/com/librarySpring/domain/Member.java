@@ -2,6 +2,7 @@ package com.librarySpring.domain;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -18,15 +19,19 @@ public class Member {
 	private String email;
 	private String name;
 	
-	@OneToOne(mappedBy="member")
+	@OneToOne(mappedBy="member", cascade=CascadeType.ALL)
 	private Membership membership;
 	
-	@OneToMany(mappedBy="member")
+	@OneToMany(mappedBy="member", cascade=CascadeType.ALL)
 	private Set<Loan> loans;
 	
-	@ManyToMany(mappedBy="members")
+	@ManyToMany(mappedBy="members", cascade=CascadeType.ALL)
 	private Set<Publication> publications;
 
+	
+	public Member() {
+		// TODO Auto-generated constructor stub
+	}
 	public long getId() {
 		return id;
 	}
@@ -65,6 +70,11 @@ public class Member {
 
 	public void setLoans(Set<Loan> loans) {
 		this.loans = loans;
+	}
+	
+	public String toString(){
+		String ret = "MEMBER: "+id+"   "+email+"   "+name+"   "+membership.getType();
+		return ret;
 	}
 	
 	

@@ -2,6 +2,7 @@ package com.librarySpring.domain;
 
 import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -16,10 +17,10 @@ public class Loan {
 	private Timestamp enddate;
 	private Timestamp starttade;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	private Publication publication;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	private Member member;
 	
 	public Loan(){

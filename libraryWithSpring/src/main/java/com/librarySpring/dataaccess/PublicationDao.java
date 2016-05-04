@@ -6,6 +6,7 @@ import com.librarySpring.domain.Book;
 import com.librarySpring.domain.Loan;
 import com.librarySpring.domain.Magazine;
 import com.librarySpring.domain.Member;
+import com.librarySpring.domain.Membership;
 import com.librarySpring.domain.Publication;
 
 public interface PublicationDao {
@@ -53,5 +54,19 @@ public interface PublicationDao {
 	public void saveMember(Member m);
 
 	public void makeLoan(Loan l);
+
+	public void saveMembership(Membership m);
+
+	public void listMembers();
+
+	public void listMemberships();
+
+	public Publication getPublicationByID(long id);
+
+	public Member getMemberByID(long id);
+
+	public List<Member> getListOfMembers();
+
+	public long getMemberIdByName(String name);
 
 }

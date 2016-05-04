@@ -1,5 +1,8 @@
 package com.librarySpring.control;
 
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Scanner;
@@ -9,7 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.librarySpring.domain.Book;
+import com.librarySpring.domain.Loan;
 import com.librarySpring.domain.Magazine;
+import com.librarySpring.domain.Member;
+import com.librarySpring.domain.Membership;
 import com.librarySpring.domain.Publication;
 import com.librarySpring.service.LibraryService;
 
@@ -111,6 +117,71 @@ public class LibraryController {
 					System.out.println(currentMagazine.toString());
 				}
 				break;
+			case 8:
+				System.out.println("Enter name: ");
+				String name = sc.nextLine();
+				System.out.println("Enter email: ");
+				String email = sc.nextLine();
+				System.out.println("Choose membership type: 1. monthly, 2. yearly, 3. lifetime");
+				String choiceMembershipStr = sc.nextLine();
+				int memType=NumberUtils.toInt(choiceMembershipStr,1);
+				String memTypeStr = "standard";
+				Calendar c = Calendar.getInstance();
+				c.setTime(new Date());
+				Timestamp startD = new Timestamp(c.getTimeInMillis());
+				Timestamp endD;
+			
+				
+				if (memType==1){
+					memTypeStr = "monthly";
+					c.add(Calendar.MONTH, 1);
+				} else if (memType ==2) {
+					memTypeStr = "yearly";
+					c.add(Calendar.YEAR, 1);
+				} else if (memType ==3){
+					memTypeStr = "lifetime";
+					c.add(Calendar.YEAR, 100);
+				} 
+				
+				endD = new Timestamp(c.getTimeInMillis());
+				Member mem = new Member();
+				mem.setEmail(email);
+				mem.setName(name);
+				Membership membership = new Membership(startD, endD, memTypeStr, mem);
+				
+				libraryService.saveMembership(membership);
+				break;
+			case 9:
+				libraryService.listMemberships();
+				break;
+			case 10:
+				libraryService.listMembers();
+				break;
+			case 11:
+				libraryService.listPublications();
+				System.out.println("Input your membership name: ");
+				String memName = sc.nextLine();
+				System.out.println("Choose id of publication to loan: ");
+				String idPub = sc.nextLine();
+				long id = NumberUtils.toLong(idPub, 0);
+				System.out.println("How many days will you loan the publication [ 1-30 ]");
+				String daysStr = sc.nextLine();
+				int daysInt = NumberUtils.toInt(daysStr, 7);
+				
+				Timestamp startOfLoan = new Timestamp(System.currentTimeMillis());
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTime(new Date());
+				calendar.add(Calendar.DATE, daysInt);
+				Timestamp endOfLoan = new Timestamp(calendar.getTimeInMillis());
+				
+				long memberId = libraryService.getMemberIdByName(memName);		
+				Member m = libraryService.getMemberByID(memberId);			
+				
+				Publication p = libraryService.getPublicationByID(id);
+				
+				Loan l = new Loan(endOfLoan, startOfLoan, p, m);
+				libraryService.makeLoan(l);
+				break;
 			default:
 				System.out.println("Wrong number entered! ");
 				continue;
@@ -131,6 +202,10 @@ public class LibraryController {
 		sb.append("5. Update Registration\n");
 		sb.append("6. List Books\n");
 		sb.append("7. List Magazines\n");
+		sb.append("8. Register Member\n");
+		sb.append("9. List Memberships\n");
+		sb.append("10. List Members\n");
+		sb.append("11. Loan a publication\n");
 		sb.append("type \"end\" to exit\n");
 		sb.append("######\n");
 		sb.append("Your choice: ");
