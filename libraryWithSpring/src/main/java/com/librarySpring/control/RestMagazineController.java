@@ -7,22 +7,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.librarySpring.domain.Book;
+import com.librarySpring.domain.Magazine;
 import com.librarySpring.service.LibraryService;
 
 @RestController
-@RequestMapping("/api/books")
-public class RestBookController {
+@RequestMapping("/api/magazines")
+public class RestMagazineController {
 	
 	@Autowired
 	LibraryService ls;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public List<Book> listBooks() {
+	public List<Magazine> listMagazines() {
 
-		List<Book> listOfBooks = ls.getListOfBooks();
+		List<Magazine> listOfMagazines = ls.getListOfMagazines();
 		
-		return listOfBooks;
+		return listOfMagazines;
 
 	}
 
