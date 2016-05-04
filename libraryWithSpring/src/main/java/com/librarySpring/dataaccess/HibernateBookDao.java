@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.librarySpring.domain.Book;
+import com.librarySpring.domain.Loan;
 import com.librarySpring.domain.Magazine;
+import com.librarySpring.domain.Member;
 import com.librarySpring.domain.Publication;
 import com.librarySpring.util.Logger;
 
@@ -502,6 +504,50 @@ public class HibernateBookDao implements PublicationDao {
 			m.setId(id);
 			s.delete(m);
 			Logger.log("Successfull unregistering of publication: " + m.getTitle());
+			tx.commit();
+
+		} catch (RuntimeException e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			throw e;
+		} finally {
+			s.close();
+		}
+		
+	}
+
+	@Override
+	public void saveMember(Member m) {
+		Logger.log("Saving member in HibernateBookDao:saveMember");
+		Session s = sf.openSession();
+		Transaction tx = null;
+		try {
+			tx = s.beginTransaction();
+			s.save(m);
+			Logger.log("Successfull saving of member: " + m.getName());
+			tx.commit();
+
+		} catch (RuntimeException e) {
+			if (tx != null) {
+				tx.rollback();
+			}
+			throw e;
+		} finally {
+			s.close();
+		}
+		
+	}
+
+	@Override
+	public void makeLoan(Loan l) {
+		Logger.log("Making a loan in HibernateBookDao:makeLoan");
+		Session s = sf.openSession();
+		Transaction tx = null;
+		try {
+			tx = s.beginTransaction();
+			s.save(l);
+			Logger.log("Successfull creation of loan by: " + l.getMember().getName() + " for publication: "+ l.getPub().getTitle());
 			tx.commit();
 
 		} catch (RuntimeException e) {

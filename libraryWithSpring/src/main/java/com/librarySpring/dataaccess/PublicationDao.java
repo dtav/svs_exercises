@@ -3,7 +3,9 @@ package com.librarySpring.dataaccess;
 import java.util.List;
 
 import com.librarySpring.domain.Book;
+import com.librarySpring.domain.Loan;
 import com.librarySpring.domain.Magazine;
+import com.librarySpring.domain.Member;
 import com.librarySpring.domain.Publication;
 
 public interface PublicationDao {
@@ -47,5 +49,9 @@ public interface PublicationDao {
 	public void unregisterBook(long id);
 
 	public void unregisterMagazine(long id);
+
+	public void saveMember(Member m);
+
+	public void makeLoan(Loan l);
 
 }

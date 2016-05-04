@@ -7,7 +7,9 @@ import org.springframework.stereotype.Component;
 
 import com.librarySpring.dataaccess.PublicationDao;
 import com.librarySpring.domain.Book;
+import com.librarySpring.domain.Loan;
 import com.librarySpring.domain.Magazine;
+import com.librarySpring.domain.Member;
 import com.librarySpring.domain.Publication;
 
 @Component
@@ -92,6 +94,13 @@ public class LibraryService {
 		this.pubDao.unregisterMagazine(id);
 	}
 	
+	public void saveMember(Member m){
+		this.pubDao.saveMember(m);
+	}
+	
+	public void makeLoan(Loan l){
+		this.pubDao.makeLoan(l);
+	}
 
 	
 

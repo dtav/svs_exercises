@@ -7,7 +7,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.librarySpring.domain.Book;
+import com.librarySpring.domain.Loan;
 import com.librarySpring.domain.Magazine;
+import com.librarySpring.domain.Member;
+import com.librarySpring.domain.Membership;
 import com.librarySpring.domain.Publication;
 
 @Configuration
@@ -19,7 +22,7 @@ public class HibernateConfiguration {
 		ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(conf.getProperties())
 				.build();
 		SessionFactory sf = conf.addAnnotatedClass(Book.class).addAnnotatedClass(Magazine.class)
-				.addAnnotatedClass(Publication.class).buildSessionFactory(serviceRegistry);
+				.addAnnotatedClass(Publication.class).addAnnotatedClass(Member.class).addAnnotatedClass(Membership.class).addAnnotatedClass(Loan.class).buildSessionFactory(serviceRegistry);
 
 		
 		
