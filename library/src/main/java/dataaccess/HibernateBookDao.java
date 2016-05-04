@@ -236,4 +236,29 @@ public class HibernateBookDao implements PublicationDao {
 		return 0;
 	}
 
+	public void unregisterBook(Book b) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void unregisterMagazine(Magazine m) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void listBooks() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void listMagazines() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void updateRegistration(Long id, String title) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

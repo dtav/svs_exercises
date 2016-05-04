@@ -1,0 +1,15 @@
+CREATE TABLE book
+(
+   id serial, 
+   isbn character varying, 
+   title character varying, 
+   PRIMARY KEY (id)
+) 
+
+CREATE TABLE magazine
+(
+   id serial, 
+   issn character varying, 
+   title character varying, 
+   PRIMARY KEY (id)
+) 
